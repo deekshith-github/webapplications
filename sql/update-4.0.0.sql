@@ -27,3 +27,23 @@ CREATE TABLE `glpi_plugin_webapplications_appliances` (
   PRIMARY KEY  (`id`),
   KEY `appliances_id` (`appliances_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `glpi_plugin_webapplications_databases`;
+CREATE TABLE `glpi_plugin_webapplications_databases` (
+   `id` int unsigned NOT NULL auto_increment,
+   `databases_id` int unsigned NOT NULL,
+   `webapplicationtechnics_id`    int unsigned    NOT NULL     DEFAULT '0'
+        COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationtechnics (id)',
+   `webapplicationexternalexpositions_id` int unsigned  NOT NULL     DEFAULT '0'
+       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationexternalexpositions (id)',
+   `webapplicationavailabilities_id` int unsigned   NOT NULL     DEFAULT '0'
+       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationavailabilities (id)',
+   `webapplicationintegrities_id` int unsigned   NOT NULL     DEFAULT '0'
+       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationintegrities (id)',
+   `webapplicationconfidentialities_id` int unsigned   NOT NULL     DEFAULT '0'
+       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationconfidentialities (id)',
+   `webapplicationtraceabilities_id` int unsigned   NOT NULL     DEFAULT '0'
+       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationtraceabilities (id)',
+   PRIMARY KEY  (`id`),
+   KEY `databases_id` (`databases_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;

@@ -38,7 +38,8 @@ function plugin_webapplications_install() {
    $update = false;
    //from 3.0 version (glpi 9.5)
    if (!$DB->tableExists("glpi_plugin_webapplications_webapplicationtypes")
-       && !$DB->tableExists("glpi_plugin_webapplications_appliances")) {
+       && !$DB->tableExists("glpi_plugin_webapplications_appliances")
+       || !$DB->tableExists("glpi_plugin_webapplications_databases")) {
 
       $DB->runFile(GLPI_ROOT . "/plugins/webapplications/sql/empty-4.0.0.sql");
 
@@ -125,7 +126,8 @@ function plugin_webapplications_install() {
 
    //from 4.0 version (glpi 10.0)
    if ($DB->tableExists("glpi_plugin_webapplications_webapplications")
-       && !$DB->tableExists("glpi_plugin_webapplications_appliances")) {
+       && !$DB->tableExists("glpi_plugin_webapplications_appliances")
+       || !$DB->tableExists("glpi_plugin_webapplications_databases")) {
       $DB->runFile(GLPI_ROOT . "/plugins/webapplications/sql/update-4.0.0.sql");
    }
 
@@ -156,6 +158,9 @@ function plugin_webapplications_install() {
 
       Plugin::migrateItemType([1200 => "PluginAppliancesAppliance"],
                               ["glpi_plugin_webapplications_webapplications_items"]);
+
+      Plugin::migrateItemType([2400 => "PluginDatabasesDatabase"],
+                              ["glpi_plugin_webapplications_webapplications_items"]);
    }
 
    PluginWebapplicationsProfile::initProfile();
@@ -178,6 +183,7 @@ function plugin_webapplications_uninstall() {
    include_once(GLPI_ROOT . "/plugins/webapplications/inc/profile.class.php");
 
    $tables = ["glpi_plugin_webapplications_appliances",
+              "glpi_plugin_webapplications_databases",
               "glpi_plugin_webapplications_webapplicationtypes",
               "glpi_plugin_webapplications_webapplicationservertypes",
               "glpi_plugin_webapplications_webapplicationtechnics",
@@ -242,7 +248,8 @@ function plugin_webapplications_getDatabaseRelations() {
    $plugin = new Plugin();
 
    if ($plugin->isActivated("webapplications")) {
-      return ["glpi_appliances" => ["glpi_plugin_webapplications_appliances" => "appliances_id"]];
+      return ["glpi_appliances" => ["glpi_plugin_webapplications_appliances" => "appliances_id"],
+              "glpi_databases" => ["glpi_plugin_webapplications_databases" => "databases_id"]];
    }
 
    return [];
@@ -368,5 +375,45 @@ function plugin_webapplications_getAddSearchOptions($itemtype) {
 
       }
    }
+    if ($itemtype == "Database") {
+        if (Session::haveRight("plugin_webapplications", READ)) {
+
+            $sopt[8108]['table']         = 'glpi_plugin_webapplications_webapplicationtechnics';
+            $sopt[8108]['field']         = 'name';
+            $sopt[8108]['datatype']      = 'dropdown';
+            $sopt[8108]['name']          = PluginWebapplicationsWebapplicationTechnic::getTypeName(1);
+            $sopt[8108]['forcegroupby']  = true;
+            $sopt[8108]['massiveaction'] = false;
+            $sopt[8108]['linkfield']     = 'webapplicationtechnics_id';
+            $sopt[8108]['joinparams']    = [
+                'beforejoin' => [
+                    'table'      => 'glpi_plugin_webapplications_databases',
+                    'joinparams' => [
+                        'jointype'  => 'child',
+                        'condition' => ''
+                    ]
+                ]
+            ];
+
+            $sopt[8109]['table']         = 'glpi_plugin_webapplications_webapplicationexternalexpositions';
+            $sopt[8109]['field']         = 'name';
+            $sopt[8109]['datatype']      = 'dropdown';
+            $sopt[8109]['name']          = PluginWebapplicationsWebapplicationTechnic::getTypeName(1);
+            $sopt[8109]['forcegroupby']  = true;
+            $sopt[8109]['massiveaction'] = false;
+            $sopt[8109]['linkfield']     = 'webapplicationexternalexpositions_id';
+            $sopt[8109]['joinparams']    = [
+                'beforejoin' => [
+                    'table'      => 'glpi_plugin_webapplications_databases',
+                    'joinparams' => [
+                        'jointype'  => 'child',
+                        'condition' => ''
+                    ]
+                ]
+            ];
+
+
+        }
+    }
    return $sopt;
 }

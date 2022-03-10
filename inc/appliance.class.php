@@ -60,7 +60,7 @@ class PluginWebapplicationsAppliance extends CommonDBTM {
          }
          $options = [];
 
-         TemplateRenderer::getInstance()->display('@webapplications/webapplication_form.html.twig', [
+         TemplateRenderer::getInstance()->display('@webapplications/webapplication_appliance_form.html.twig', [
             'item'   => $webapp_appliance,
             'params' => $options,
          ]);

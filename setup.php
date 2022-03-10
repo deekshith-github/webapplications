@@ -49,20 +49,31 @@ function plugin_init_webapplications() {
 //      }
 //   }
 
-   $PLUGIN_HOOKS['post_item_form']['webapplications'] = ['PluginWebapplicationsAppliance', 'addFields'];
+    if (strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true){
+        $PLUGIN_HOOKS['post_item_form']['webapplications']= ['PluginWebapplicationsAppliance', 'addFields'];
+    }
+    elseif (strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true) {
+        $PLUGIN_HOOKS['post_item_form']['webapplications'] = ['PluginWebapplicationsDatabase', 'addFields'];
+    }
 
    $PLUGIN_HOOKS['item_purge']['webapplications']['Appliance'] = ['PluginWebapplicationsAppliance', 'cleanRelationToAppliance'];
+   $PLUGIN_HOOKS['item_purge']['webapplications']['Database'] = ['PluginWebapplicationsDatabase', 'cleanRelationToDatabase'];
 
    // Other fields inherited from webapplications
    $PLUGIN_HOOKS['item_add']['webapplications']       = ['Appliance' => ['PluginWebapplicationsAppliance',
-                                                                         'applianceAdd']];
+                                                                         'applianceAdd'],
+                                                         'Database' => ['PluginWebapplicationsDatabase',
+                                                                         'databaseAdd']];
 
    $PLUGIN_HOOKS['pre_item_update']['webapplications'] = ['Appliance' => ['PluginWebapplicationsAppliance',
-                                                                          'applianceUpdate']];
+                                                                          'applianceUpdate'],
+                                                          'Database' => ['PluginWebapplicationsDatabase',
+                                                                          'databaseUpdate']];
 
-   if (strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true) {
+   if (strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true) {
         $PLUGIN_HOOKS["add_javascript"]['webapplications'][] = 'scripts/securityneedscolor.js.php';
    }
+
 }
 
 
