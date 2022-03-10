@@ -11,102 +11,86 @@
     {% set withtemplate = params['withtemplate'] ?? "" %}
     {% set item_type = item.getType() %}
 
-<div class="row flex-row">
+    
+{% if item.isField('webapplicationexternalexpositions_id') %}
+    {{ fields.dropdownField(
+        "PluginWebapplicationsWebapplicationExternalExposition",
+        "webapplicationexternalexpositions_id",
+        item.fields['webapplicationexternalexpositions_id'],
+        "PluginWebapplicationsWebapplicationExternalExposition"|itemtype_name,
+        {'align_label_right' : false,}
+    ) }}
+{% endif %}
 
-    {% if item.isField('webapplicationtechnics_id') %}
-        {{ fields.dropdownField(
-            "PluginWebapplicationsWebapplicationTechnic",
-            "webapplicationtechnics_id",
-            item.fields['webapplicationtechnics_id'],
-            "PluginWebapplicationsWebapplicationTechnic"|itemtype_name,
-            {'align_label_right' : false,}
-        ) }}
-    {% endif %}
+{{ fields.smallTitle(__('Security Needs')) }}
+<table>
+    <tbody>
+    <tr>
+        <td>
+            {% if item.isField('webapplicationavailabilities') %}
+                {{ fields.dropdownNumberField(
+                    'webapplicationavailabilities',
+                    item.fields['webapplicationavailabilities'],
+                    "PluginWebapplicationsWebapplicationAvailability"|itemtype_name,
+                    {
+                        'min'            : 1,
+                        'max'            : 4,
+                        'step'           : 1,
+                        'field_class': 'col-12',
+                        'label_class': 'col-xxl-8',
+                        'input_class': 'col-xxl-4',}
+                ) }}
+            {% endif %}
+        </td>
+        <td>
+            {% if item.isField('webapplicationintegrities') %}
+                {{ fields.dropdownNumberField(
+                    'webapplicationintegrities',
+                    item.fields['webapplicationintegrities'],
+                    "PluginWebapplicationsWebapplicationIntegrity"|itemtype_name,
+                    {
+                        'min'            : 1,
+                        'max'            : 4,
+                        'step'           : 1,
+                        'field_class'    : 'col-12',
+                        'label_class'    : 'col-xxl-8',
+                        'input_class'    : 'col-xxl-4',}
+                ) }}
+            {% endif %}
+        </td>
+        <td>
+            {% if item.isField('webapplicationconfidentialities') %}
+                {{ fields.dropdownNumberField(
+                    'webapplicationconfidentialities',
+                    item.fields['webapplicationconfidentialities'],
+                    "PluginWebapplicationsWebapplicationConfidentiality"|itemtype_name,
+                    {
+                        'min'            : 0,
+                        'max'            : 4,
+                        'step'           : 1,
+                        'field_class': 'col-12',
+                        'label_class': 'col-xxl-8',
+                        'input_class': 'col-xxl-4',}
+                ) }}
+            {% endif %}
+        </td>
+        <td>
+            {% if item.isField('webapplicationtraceabilities') %}
+                {{ fields.dropdownNumberField(
+                    'webapplicationtraceabilities',
+                    item.fields['webapplicationtraceabilities'],
+                    "PluginWebapplicationsWebapplicationTraceability"|itemtype_name,
+                    {
+                        'min'            : 1,
+                        'max'            : 4,
+                        'step'           : 1,
+                        'field_class': 'col-12',
+                        'label_class': 'col-xxl-8',
+                        'input_class': 'col-xxl-4',}
+                ) }}
+            {% endif %}
+        </td>
 
-
-    {% if item.isField('webapplicationexternalexpositions_id') %}
-        {{ fields.dropdownField(
-            "PluginWebapplicationsWebapplicationExternalExposition",
-            "webapplicationexternalexpositions_id",
-            item.fields['webapplicationexternalexpositions_id'],
-            "PluginWebapplicationsWebapplicationExternalExposition"|itemtype_name,
-            {'align_label_right' : false,}
-        ) }}
-    {% endif %}
-
-    {{ fields.smallTitle(__('Security Needs')) }}
-    <table>
-        <tbody>
-        <tr>
-            <td>
-                {% if item.isField('webapplicationavailabilities_id') %}
-                    {{ fields.dropdownNumberField(
-                        'webapplicationavailabilities_id',
-                        item.fields['webapplicationavailabilities_id'],
-                        "PluginWebapplicationsWebapplicationAvailability"|itemtype_name,
-                        {
-                            'min'            : 1,
-                            'max'            : 4,
-                            'step'           : 1,
-                            'field_class': 'col-12',
-                            'label_class': 'col-xxl-8',
-                            'input_class': 'col-xxl-4',}
-                    ) }}
-                {% endif %}
-            </td>
-            <td>
-                {% if item.isField('webapplicationintegrities_id') %}
-                    {{ fields.dropdownNumberField(
-                        'webapplicationintegrities_id',
-                        item.fields['webapplicationintegrities_id'],
-                        "PluginWebapplicationsWebapplicationIntegrity"|itemtype_name,
-                        {
-                            'min'            : 1,
-                            'max'            : 4,
-                            'step'           : 1,
-                            'field_class'    : 'col-12',
-                            'label_class'    : 'col-xxl-8',
-                            'input_class'    : 'col-xxl-4',}
-                    ) }}
-                {% endif %}
-            </td>
-            <td>
-                {% if item.isField('webapplicationconfidentialities_id') %}
-                    {{ fields.dropdownNumberField(
-                        'webapplicationconfidentialities_id',
-                        item.fields['webapplicationconfidentialities_id'],
-                        "PluginWebapplicationsWebapplicationConfidentiality"|itemtype_name,
-                        {
-                            'min'            : 0,
-                            'max'            : 4,
-                            'step'           : 1,
-                            'value'          : 0,
-                            'field_class': 'col-12',
-                            'label_class': 'col-xxl-8',
-                            'input_class': 'col-xxl-4',}
-                    ) }}
-                {% endif %}
-            </td>
-            <td>
-                {% if item.isField('webapplicationtraceabilities_id') %}
-                    {{ fields.dropdownNumberField(
-                        'webapplicationtraceabilities_id',
-                        item.fields['webapplicationtraceabilities_id'],
-                        "PluginWebapplicationsWebapplicationTraceability"|itemtype_name,
-                        {
-                            'min'            : 1,
-                            'max'            : 4,
-                            'step'           : 1,
-                            'field_class': 'col-12',
-                            'label_class': 'col-xxl-8',
-                            'input_class': 'col-xxl-4',}
-                    ) }}
-                {% endif %}
-            </td>
-
-        </tr>
-        </tbody>
-    </table>
-
-
-</div> {# .row #}
+    </tr>
+    </tbody>
+</table>

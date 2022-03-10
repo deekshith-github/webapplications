@@ -187,13 +187,7 @@ function plugin_webapplications_uninstall() {
               "glpi_plugin_webapplications_webapplicationtypes",
               "glpi_plugin_webapplications_webapplicationservertypes",
               "glpi_plugin_webapplications_webapplicationtechnics",
-              "glpi_plugin_webapplications_webapplicationexternalexpositions",
-              "glpi_plugin_webapplications_webapplicationrefdepvalidation",
-              "glpi_plugin_webapplications_webapplicationciovalidation",
-              "glpi_plugin_webapplications_webapplicationavailabilities",
-              "glpi_plugin_webapplications_webapplicationintegrities",
-              "glpi_plugin_webapplications_webapplicationconfidentialities",
-              "glpi_plugin_webapplications_webapplicationtraceabilities"];
+              "glpi_plugin_webapplications_webapplicationexternalexpositions"];
 
    foreach ($tables as $table) {
       $DB->query("DROP TABLE IF EXISTS `$table`;");
@@ -268,13 +262,7 @@ function plugin_webapplications_getDropdown() {
       return ['PluginWebapplicationsWebapplicationServerType' => PluginWebapplicationsWebapplicationServerType::getTypeName(2),
 //              'PluginWebapplicationsWebapplicationType'       => PluginWebapplicationsWebapplicationType::getTypeName(2),
               'PluginWebapplicationsWebapplicationTechnic'    => PluginWebapplicationsWebapplicationTechnic::getTypeName(2),
-              'PluginWebapplicationsWebapplicationExternalExposition' => PluginWebapplicationsWebapplicationExternalExposition::getTypeName(2),
-              'PluginWebapplicationsWebapplicationReferringDepartmentValidation' => PluginWebapplicationsWebapplicationReferringDepartmentValidation::getTypeName(2),
-              'PluginWebapplicationsWebapplicationCIOValidation' => PluginWebapplicationsWebapplicationCIOValidation::getTypeName(2),
-              'PluginWebapplicationsWebapplicationAvailability' => PluginWebapplicationsWebapplicationAvailability::getTypeName(2),
-              'PluginWebapplicationsWebapplicationIntegrity' => PluginWebapplicationsWebapplicationIntegrity::getTypeName(2),
-              'PluginWebapplicationsWebapplicationConfidentiality' => PluginWebapplicationsWebapplicationConfidentiality::getTypeName(2),
-              'PluginWebapplicationsWebapplicationTraceability' => PluginWebapplicationsWebapplicationTraceability::getTypeName(2)];
+              'PluginWebapplicationsWebapplicationExternalExposition' => PluginWebapplicationsWebapplicationExternalExposition::getTypeName(2)];
    }
    return [];
 }
@@ -378,31 +366,14 @@ function plugin_webapplications_getAddSearchOptions($itemtype) {
     if ($itemtype == "Database") {
         if (Session::haveRight("plugin_webapplications", READ)) {
 
-            $sopt[8108]['table']         = 'glpi_plugin_webapplications_webapplicationtechnics';
+            $sopt[8108]['table']         = 'glpi_plugin_webapplications_webapplicationexternalexpositions';
             $sopt[8108]['field']         = 'name';
             $sopt[8108]['datatype']      = 'dropdown';
             $sopt[8108]['name']          = PluginWebapplicationsWebapplicationTechnic::getTypeName(1);
             $sopt[8108]['forcegroupby']  = true;
             $sopt[8108]['massiveaction'] = false;
-            $sopt[8108]['linkfield']     = 'webapplicationtechnics_id';
+            $sopt[8108]['linkfield']     = 'webapplicationexternalexpositions_id';
             $sopt[8108]['joinparams']    = [
-                'beforejoin' => [
-                    'table'      => 'glpi_plugin_webapplications_databases',
-                    'joinparams' => [
-                        'jointype'  => 'child',
-                        'condition' => ''
-                    ]
-                ]
-            ];
-
-            $sopt[8109]['table']         = 'glpi_plugin_webapplications_webapplicationexternalexpositions';
-            $sopt[8109]['field']         = 'name';
-            $sopt[8109]['datatype']      = 'dropdown';
-            $sopt[8109]['name']          = PluginWebapplicationsWebapplicationTechnic::getTypeName(1);
-            $sopt[8109]['forcegroupby']  = true;
-            $sopt[8109]['massiveaction'] = false;
-            $sopt[8109]['linkfield']     = 'webapplicationexternalexpositions_id';
-            $sopt[8109]['joinparams']    = [
                 'beforejoin' => [
                     'table'      => 'glpi_plugin_webapplications_databases',
                     'joinparams' => [

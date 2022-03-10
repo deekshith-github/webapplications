@@ -14,10 +14,10 @@ header('Content-Type: text/javascript');
         // Start the plugin
         function init() {
             $(document).ajaxStop(function(){
-                var select_a = document.getElementById($("*[name='webapplicationavailabilities_id']").attr('id'));
-                var select_i = document.getElementById($("*[name='webapplicationintegrities_id']").attr('id'));
-                var select_c = document.getElementById($("*[name='webapplicationconfidentialities_id']").attr('id'));
-                var select_t = document.getElementById($("*[name='webapplicationtraceabilities_id']").attr('id'));
+                var select_a = document.getElementById($("*[name='webapplicationavailabilities']").attr('id'));
+                var select_i = document.getElementById($("*[name='webapplicationintegrities']").attr('id'));
+                var select_c = document.getElementById($("*[name='webapplicationconfidentialities']").attr('id'));
+                var select_t = document.getElementById($("*[name='webapplicationtraceabilities']").attr('id'));
 
                 select_a.onchange = switchColor;
                 select_i.onchange = switchColor;

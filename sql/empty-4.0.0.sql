@@ -55,64 +55,6 @@ CREATE TABLE `glpi_plugin_webapplications_webapplicationexternalexpositions` (
   KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_webapplicationrefdepvalidation`;
-CREATE TABLE `glpi_plugin_webapplications_webapplicationrefdepvalidation` (
-   `id`      int unsigned NOT NULL        AUTO_INCREMENT,
-   `validation`    tinyint(1) NOT NULL default '0',
-   `comment` TEXT COLLATE utf8mb4_unicode_ci,
-   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_webapplicationciovalidation`;
-CREATE TABLE `glpi_plugin_webapplications_webapplicationciovalidation` (
-  `id`      int unsigned NOT NULL        AUTO_INCREMENT,
-  `validation`    tinyint(1) NOT NULL default '0',
-  `comment` TEXT COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-
-
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_webapplicationavailabilities`;
-CREATE TABLE `glpi_plugin_webapplications_webapplicationavailabilities` (
-   `id`      int unsigned NOT NULL        AUTO_INCREMENT,
-   `name`    VARCHAR(255)
-       COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 1,
-   `color`   VARCHAR(6) DEFAULT NULL,
-   `comment` TEXT COLLATE utf8mb4_unicode_ci,
-   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_webapplicationintegrities`;
-CREATE TABLE `glpi_plugin_webapplications_webapplicationintegrities` (
-   `id`      int unsigned NOT NULL        AUTO_INCREMENT,
-   `name`    VARCHAR(255)
-       COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 1,
-   `color`   VARCHAR(6) DEFAULT NULL,
-   `comment` TEXT COLLATE utf8mb4_unicode_ci,
-   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_webapplicationconfidentialities`;
-CREATE TABLE `glpi_plugin_webapplications_webapplicationconfidentialities` (
-   `id`      int unsigned NOT NULL        AUTO_INCREMENT,
-   `name`    VARCHAR(255)
-       COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 1,
-   `color`   VARCHAR(6) DEFAULT NULL,
-   `comment` TEXT COLLATE utf8mb4_unicode_ci,
-   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_webapplicationtraceabilities`;
-CREATE TABLE `glpi_plugin_webapplications_webapplicationtraceabilities` (
-   `id`      int unsigned NOT NULL        AUTO_INCREMENT,
-   `name`    VARCHAR(255)
-       COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 1,
-   `color`   VARCHAR(6) DEFAULT NULL,
-   `comment` TEXT COLLATE utf8mb4_unicode_ci,
-   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
 
 DROP TABLE IF EXISTS `glpi_plugin_webapplications_appliances`;
 CREATE TABLE `glpi_plugin_webapplications_appliances` (
@@ -126,18 +68,12 @@ CREATE TABLE `glpi_plugin_webapplications_appliances` (
         COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationtechnics (id)',
    `webapplicationexternalexpositions_id` int unsigned  NOT NULL     DEFAULT '0'
        COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationexternalexpositions (id)',
-   `webapplicationreferringdepartmentvalidation_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationrefdepvalidation (id)',
-   `webapplicationciovalidation_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationciovalidation (id)',
-   `webapplicationavailabilities_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationavailabilities (id)',
-   `webapplicationintegrities_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationintegrities (id)',
-   `webapplicationconfidentialities_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationconfidentialities (id)',
-   `webapplicationtraceabilities_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationtraceabilities (id)',
+   `webapplicationreferringdepartmentvalidation` TINYINT(1) NOT NULL default '0',
+   `webapplicationciovalidation` TINYINT(1) NOT NULL default '0',
+   `webapplicationavailabilities` int unsigned   NOT NULL     DEFAULT '1',
+   `webapplicationintegrities` int unsigned   NOT NULL     DEFAULT '1',
+   `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
+   `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1',
    `address` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `backoffice`  VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    PRIMARY KEY  (`id`),
@@ -148,18 +84,12 @@ DROP TABLE IF EXISTS `glpi_plugin_webapplications_databases`;
 CREATE TABLE `glpi_plugin_webapplications_databases` (
    `id` int unsigned NOT NULL auto_increment,
    `databases_id` int unsigned NOT NULL,
-   `webapplicationtechnics_id`    int unsigned    NOT NULL     DEFAULT '0'
-        COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationtechnics (id)',
    `webapplicationexternalexpositions_id` int unsigned  NOT NULL     DEFAULT '0'
        COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationexternalexpositions (id)',
-   `webapplicationavailabilities_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationavailabilities (id)',
-   `webapplicationintegrities_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationintegrities (id)',
-   `webapplicationconfidentialities_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationconfidentialities (id)',
-   `webapplicationtraceabilities_id` int unsigned   NOT NULL     DEFAULT '0'
-       COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationtraceabilities (id)',
+   `webapplicationavailabilities` int unsigned   NOT NULL     DEFAULT '1',
+   `webapplicationintegrities` int unsigned   NOT NULL     DEFAULT '1',
+   `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
+   `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1',
    PRIMARY KEY  (`id`),
    KEY `databases_id` (`databases_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;

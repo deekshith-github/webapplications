@@ -67,10 +67,10 @@
                         <tbody>
                         <tr>
                             <td>
-                                {% if item.isField('webapplicationavailabilities_id') %}
+                                {% if item.isField('webapplicationavailabilities') %}
                                     {{ fields.dropdownNumberField(
-                                        'webapplicationavailabilities_id',
-                                        item.fields['webapplicationavailabilities_id'],
+                                        'webapplicationavailabilities',
+                                        item.fields['webapplicationavailabilities'],
                                         "PluginWebapplicationsWebapplicationAvailability"|itemtype_name,
                                         {
                                             'min'            : 1,
@@ -83,10 +83,10 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if item.isField('webapplicationintegrities_id') %}
+                                {% if item.isField('webapplicationintegrities') %}
                                     {{ fields.dropdownNumberField(
-                                        'webapplicationintegrities_id',
-                                        item.fields['webapplicationintegrities_id'],
+                                        'webapplicationintegrities',
+                                        item.fields['webapplicationintegrities'],
                                         "PluginWebapplicationsWebapplicationIntegrity"|itemtype_name,
                                         {
                                             'min'            : 1,
@@ -99,27 +99,27 @@
                                 {% endif %}
                             </td>
                             <td>
-                                {% if item.isField('webapplicationconfidentialities_id') %}
+                                {% if item.isField('webapplicationconfidentialities') %}
                                     {{ fields.dropdownNumberField(
-                                        'webapplicationconfidentialities_id',
-                                        item.fields['webapplicationconfidentialities_id'],
+                                        'webapplicationconfidentialities',
+                                        item.fields['webapplicationconfidentialities'],
                                         "PluginWebapplicationsWebapplicationConfidentiality"|itemtype_name,
                                         {
                                             'min'            : 0,
                                             'max'            : 4,
                                             'step'           : 1,
-                                            'value'          : 0,
                                             'field_class': 'col-12',
                                             'label_class': 'col-xxl-8',
                                             'input_class': 'col-xxl-4',}
                                     ) }}
                                 {% endif %}
+
                             </td>
                             <td>
-                                {% if item.isField('webapplicationtraceabilities_id') %}
+                                {% if item.isField('webapplicationtraceabilities') %}
                                     {{ fields.dropdownNumberField(
-                                        'webapplicationtraceabilities_id',
-                                        item.fields['webapplicationtraceabilities_id'],
+                                        'webapplicationtraceabilities',
+                                        item.fields['webapplicationtraceabilities'],
                                         "PluginWebapplicationsWebapplicationTraceability"|itemtype_name,
                                         {
                                             'min'            : 1,
@@ -142,18 +142,18 @@
 
                     {{ fields.smallTitle(__('Installation')) }}
 
-                    {% if item.isField('webapplicationreferringdepartmentvalidation_id') %}
+                    {% if item.isField('webapplicationreferringdepartmentvalidation') %}
                         {{ fields.dropdownYesNo(
-                            "PluginWebapplicationsWebapplicationReferringDepartmentValidation",
-                            item.fields['webapplicationreferringdepartmentvalidation_id'],
+                            "webapplicationreferringdepartmentvalidation",
+                            item.fields['webapplicationreferringdepartmentvalidation'],
                             "PluginWebapplicationsWebapplicationReferringDepartmentValidation"|itemtype_name,
                         ) }}
                     {% endif %}
 
-                    {% if item.isField('webapplicationciovalidation_id') %}
+                    {% if item.isField('webapplicationciovalidation') %}
                         {{ fields.dropdownYesNo(
-                            "PluginWebapplicationsWebapplicationCIOValidation",
-                            item.fields['webapplicationciovalidation_id'],
+                            "webapplicationciovalidation",
+                            item.fields['webapplicationciovalidation'],
                             "PluginWebapplicationsWebapplicationCIOValidation"|itemtype_name,
                         ) }}
                     {% endif %}

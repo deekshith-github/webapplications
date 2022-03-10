@@ -104,20 +104,18 @@ class PluginWebapplicationsDatabase extends CommonDBTM {
          $database->getFromDBByCrit(['databases_id' => $item->getID()]);
          if (is_array($database->fields) && count($database->fields) > 0) {
             $database->update(['id'                           => $database->fields['id'],
-                                'webapplicationtechnics_id'    => isset($item->input['webapplicationtechnics_id']) ? $item->input['webapplicationtechnics_id'] : $database->fields['plugin_webapplications_webapplicationtechnics_id'],
                                 'webapplicationexternalexpositions_id'    => isset($item->input['webapplicationexternalexpositions_id']) ? $item->input['webapplicationexternalexpositions_id'] : $database->fields['plugin_webapplications_webapplicationexternalexpositions_id'],
-                                'webapplicationavailabilities_id'    => isset($item->input['webapplicationavailabilities_id']) ? $item->input['webapplicationavailabilities_id'] : $database->fields['plugin_webapplications_webapplicationavailabilities_id'],
-                                'webapplicationintegrities_id'    => isset($item->input['webapplicationintegrities_id']) ? $item->input['webapplicationintegrities_id'] : $database->fields['plugin_webapplications_webapplicationintegrities_id'],
-                                'webapplicationconfidentialities_id'    => isset($item->input['webapplicationconfidentialities_id']) ? $item->input['webapplicationconfidentialities_id'] : $database->fields['plugin_webapplications_webapplicationconfidentialities_id'],
-                                'webapplicationtraceabilities_id'    => isset($item->input['webapplicationtraceabilities_id']) ? $item->input['webapplicationtraceabilities_id'] : $database->fields['plugin_webapplications_webapplicationtraceabilities_id']
+                                'webapplicationavailabilities'    => isset($item->input['webapplicationavailabilities']) ? $item->input['webapplicationavailabilities'] : $database->fields['plugin_webapplications_webapplicationavailabilities'],
+                                'webapplicationintegrities'    => isset($item->input['webapplicationintegrities']) ? $item->input['webapplicationintegrities'] : $database->fields['plugin_webapplications_webapplicationintegrities'],
+                                'webapplicationconfidentialities'    => isset($item->input['webapplicationconfidentialities']) ? $item->input['webapplicationconfidentialities'] : $database->fields['plugin_webapplications_webapplicationconfidentialities'],
+                                'webapplicationtraceabilities'    => isset($item->input['webapplicationtraceabilities']) ? $item->input['webapplicationtraceabilities'] : $database->fields['plugin_webapplications_webapplicationtraceabilities']
                                ]);
          } else {
-            $database->add([ 'webapplicationtechnics_id'    => isset($item->input['webapplicationtechnics_id']) ? $item->input['webapplicationtechnics_id'] : 0,
-                             'webapplicationexternalexpositions_id' => isset($item->input['webapplicationexternalexpositions_id']) ? $item->input['webapplicationexternalexpositions_id'] : 0,
-                             'webapplicationavailabilities_id' => isset($item->input['webapplicationavailabilities_id']) ? $item->input['webapplicationavailabilities_id'] : 0,
-                             'webapplicationintegrities_id' => isset($item->input['webapplicationintegrities_id']) ? $item->input['webapplicationintegrities_id'] : 0,
-                             'webapplicationconfidentialities_id' => isset($item->input['webapplicationconfidentialities_id']) ? $item->input['webapplicationconfidentialities_id'] : 0,
-                             'webapplicationtraceabilities_id' => isset($item->input['webapplicationtraceabilities_id']) ? $item->input['webapplicationtraceabilities_id'] : 0,
+            $database->add([ 'webapplicationexternalexpositions_id' => isset($item->input['webapplicationexternalexpositions_id']) ? $item->input['webapplicationexternalexpositions_id'] : 0,
+                             'webapplicationavailabilities' => isset($item->input['webapplicationavailabilities']) ? $item->input['webapplicationavailabilities'] : 0,
+                             'webapplicationintegrities' => isset($item->input['webapplicationintegrities']) ? $item->input['webapplicationintegrities'] : 0,
+                             'webapplicationconfidentialities' => isset($item->input['webapplicationconfidentialities']) ? $item->input['webapplicationconfidentialities'] : 0,
+                             'webapplicationtraceabilities' => isset($item->input['webapplicationtraceabilities']) ? $item->input['webapplicationtraceabilities'] : 0,
                              'databases_id'                => $item->getID()]);
          }
       }

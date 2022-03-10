@@ -86,15 +86,15 @@ if ($DB->TableExists("glpi_plugin_webapplications_webapplications") && $_POST['d
       $DB->query($migrate_webapps);
 
       $migrate_webapps_additional_fields = 'INSERT INTO `glpi_plugin_webapplications_appliances` (`appliances_id`, 
-                                               `webapplicationservertypes_id`, `webapplicationtechnics_id`, `address`, `backoffice`, `webapplicationexternalexpositions_id`, `webapplicationreferringdepartmentvalidation_id`, `webapplicationciovalidation_id`, `webapplicationavailabilities_id`, `webapplicationintegrities_id`, `webapplicationconfidentialities_id`, `webapplicationtraceabilities_id`) VALUES
+                                               `webapplicationservertypes_id`, `webapplicationtechnics_id`, `address`, `backoffice`, `webapplicationexternalexpositions_id`, `webapplicationreferringdepartmentvalidation`, `webapplicationciovalidation`, `webapplicationavailabilities`, `webapplicationintegrities`, `webapplicationconfidentialities`, `webapplicationtraceabilities`) VALUES
                                               ("' . $webapp['id'] . '", "' . $webapp['plugin_webapplications_webapplicationservertypes_id'] . '",
                                                       "' . $webapp['plugin_webapplications_webapplicationtechnics_id'] . '",
-                                                         "' . $webapp['address'] . '", "' . $webapp['backoffice'] . '", "' . $webapp['webapplicationexternalexpositions_id'] . '", "' . $webapp['webapplicationreferringdepartmentvalidation_id'] . '", "' . $webapp['webapplicationciovalidation_id'] . '", "' . $webapp['webapplicationavailabilities_id'] . '", "' . $webapp['webapplicationintegrities_id'] . '", "' . $webapp['webapplicationconfidentialities_id'] . '", "' . $webapp['webapplicationtraceabilities_id'] . '");
+                                                         "' . $webapp['address'] . '", "' . $webapp['backoffice'] . '", "' . $webapp['webapplicationexternalexpositions_id'] . '", "' . $webapp['webapplicationreferringdepartmentvalidation'] . '", "' . $webapp['webapplicationciovalidation'] . '", "' . $webapp['webapplicationavailabilities'] . '", "' . $webapp['webapplicationintegrities'] . '", "' . $webapp['webapplicationconfidentialities'] . '", "' . $webapp['webapplicationtraceabilities'] . '");
                                               
                                               INSERT INTO `glpi_plugin_webapplications_databases` (`databases_id`, 
-                                               `webapplicationtechnics_id`, `webapplicationexternalexpositions_id`, `webapplicationavailabilities_id`, `webapplicationintegrities_id`, `webapplicationconfidentialities_id`, `webapplicationtraceabilities_id`) VALUES
-                                              ("' . $webapp['id'] . '", "' . $webapp['plugin_webapplications_webapplicationtechnics_id'] . '",
-                                                        "' . $webapp['webapplicationexternalexpositions_id'] . '", "' . $webapp['webapplicationavailabilities_id'] . '", "' . $webapp['webapplicationintegrities_id'] . '", "' . $webapp['webapplicationconfidentialities_id'] . '", "' . $webapp['webapplicationtraceabilities_id'] . '")';
+                                               `webapplicationexternalexpositions_id`, `webapplicationavailabilities`, `webapplicationintegrities`, `webapplicationconfidentialities`, `webapplicationtraceabilities`) VALUES
+                                              ("' . $webapp['id'] . '", "' . $webapp['webapplicationexternalexpositions_id'] . '", 
+                                              "' . $webapp['webapplicationavailabilities'] . '", "' . $webapp['webapplicationintegrities'] . '", "' . $webapp['webapplicationconfidentialities'] . '", "' . $webapp['webapplicationtraceabilities'] . '")';
 
 
       $DB->query($migrate_webapps_additional_fields);
