@@ -11,7 +11,7 @@
     {% set withtemplate = params['withtemplate'] ?? "" %}
     {% set item_type = item.getType() %}
 
-    
+
 {% if item.isField('webapplicationexternalexpositions_id') %}
     {{ fields.dropdownField(
         "PluginWebapplicationsWebapplicationExternalExposition",
@@ -22,6 +22,7 @@
     ) }}
 {% endif %}
 
+
 {{ fields.smallTitle(__('Security Needs')) }}
 <table>
     <tbody>
@@ -31,7 +32,7 @@
                 {{ fields.dropdownNumberField(
                     'webapplicationavailabilities',
                     item.fields['webapplicationavailabilities'],
-                    "PluginWebapplicationsWebapplicationAvailability"|itemtype_name,
+                    __('Availability', 'webapplications'),
                     {
                         'min'            : 1,
                         'max'            : 4,
@@ -41,13 +42,14 @@
                         'input_class': 'col-xxl-4',}
                 ) }}
             {% endif %}
+
         </td>
         <td>
             {% if item.isField('webapplicationintegrities') %}
                 {{ fields.dropdownNumberField(
                     'webapplicationintegrities',
                     item.fields['webapplicationintegrities'],
-                    "PluginWebapplicationsWebapplicationIntegrity"|itemtype_name,
+                    __('Integrity', 'webapplications'),
                     {
                         'min'            : 1,
                         'max'            : 4,
@@ -63,7 +65,7 @@
                 {{ fields.dropdownNumberField(
                     'webapplicationconfidentialities',
                     item.fields['webapplicationconfidentialities'],
-                    "PluginWebapplicationsWebapplicationConfidentiality"|itemtype_name,
+                    __('Confidentiality', 'webapplications'),
                     {
                         'min'            : 0,
                         'max'            : 4,
@@ -73,13 +75,14 @@
                         'input_class': 'col-xxl-4',}
                 ) }}
             {% endif %}
+
         </td>
         <td>
             {% if item.isField('webapplicationtraceabilities') %}
                 {{ fields.dropdownNumberField(
                     'webapplicationtraceabilities',
                     item.fields['webapplicationtraceabilities'],
-                    "PluginWebapplicationsWebapplicationTraceability"|itemtype_name,
+                    __('Traceability', 'webapplications'),
                     {
                         'min'            : 1,
                         'max'            : 4,

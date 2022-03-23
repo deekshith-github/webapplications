@@ -71,7 +71,7 @@
                                     {{ fields.dropdownNumberField(
                                         'webapplicationavailabilities',
                                         item.fields['webapplicationavailabilities'],
-                                        "PluginWebapplicationsWebapplicationAvailability"|itemtype_name,
+                                        __('Availability', 'webapplications'),
                                         {
                                             'min'            : 1,
                                             'max'            : 4,
@@ -81,13 +81,14 @@
                                             'input_class': 'col-xxl-4',}
                                     ) }}
                                 {% endif %}
+
                             </td>
                             <td>
                                 {% if item.isField('webapplicationintegrities') %}
                                     {{ fields.dropdownNumberField(
                                         'webapplicationintegrities',
                                         item.fields['webapplicationintegrities'],
-                                        "PluginWebapplicationsWebapplicationIntegrity"|itemtype_name,
+                                        __('Integrity', 'webapplications'),
                                         {
                                             'min'            : 1,
                                             'max'            : 4,
@@ -103,7 +104,7 @@
                                     {{ fields.dropdownNumberField(
                                         'webapplicationconfidentialities',
                                         item.fields['webapplicationconfidentialities'],
-                                        "PluginWebapplicationsWebapplicationConfidentiality"|itemtype_name,
+                                        __('Confidentiality', 'webapplications'),
                                         {
                                             'min'            : 0,
                                             'max'            : 4,
@@ -120,7 +121,7 @@
                                     {{ fields.dropdownNumberField(
                                         'webapplicationtraceabilities',
                                         item.fields['webapplicationtraceabilities'],
-                                        "PluginWebapplicationsWebapplicationTraceability"|itemtype_name,
+                                        __('Traceability', 'webapplications'),
                                         {
                                             'min'            : 1,
                                             'max'            : 4,
@@ -146,7 +147,7 @@
                         {{ fields.dropdownYesNo(
                             "webapplicationreferringdepartmentvalidation",
                             item.fields['webapplicationreferringdepartmentvalidation'],
-                            "PluginWebapplicationsWebapplicationReferringDepartmentValidation"|itemtype_name,
+                            __('Validation of the request by the referring Department', 'webapplications'),
                         ) }}
                     {% endif %}
 
@@ -154,7 +155,7 @@
                         {{ fields.dropdownYesNo(
                             "webapplicationciovalidation",
                             item.fields['webapplicationciovalidation'],
-                            "PluginWebapplicationsWebapplicationCIOValidation"|itemtype_name,
+                            __('Validation by CIO', 'webapplications'),
                         ) }}
                     {% endif %}
 

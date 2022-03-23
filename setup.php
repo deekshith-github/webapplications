@@ -38,8 +38,16 @@ function plugin_init_webapplications() {
    $PLUGIN_HOOKS['change_profile']['webapplications']   = ['PluginWebapplicationsProfile',
       'initProfile'];
 
+
+
    Plugin::registerClass('PluginWebapplicationsProfile', ['addtabon' => ['Profile']]);
 
+
+    if (Session::getLoginUserID()) {
+        if (Session::haveRight("plugin_webapplications", READ)) {
+            $PLUGIN_HOOKS['menu_toadd']['webapplications'] = ['management' => 'PluginWebapplicationsFlux'];
+        }
+    }
    //if glpi is loaded
 //   if (Session::getLoginUserID()) {
 //
@@ -58,15 +66,20 @@ function plugin_init_webapplications() {
 
    $PLUGIN_HOOKS['item_purge']['webapplications']['Appliance'] = ['PluginWebapplicationsAppliance', 'cleanRelationToAppliance'];
    $PLUGIN_HOOKS['item_purge']['webapplications']['Database'] = ['PluginWebapplicationsDatabase', 'cleanRelationToDatabase'];
+   $PLUGIN_HOOKS['item_purge']['webapplications']['Flux'] = ['PluginWebapplicationsFlux', 'cleanRelationToDatabase'];
 
    // Other fields inherited from webapplications
    $PLUGIN_HOOKS['item_add']['webapplications']       = ['Appliance' => ['PluginWebapplicationsAppliance',
                                                                          'applianceAdd'],
+                                                         'Flux' => ['PluginWebapplicationsFlux',
+                                                                         'fluxAdd'],
                                                          'Database' => ['PluginWebapplicationsDatabase',
                                                                          'databaseAdd']];
 
    $PLUGIN_HOOKS['pre_item_update']['webapplications'] = ['Appliance' => ['PluginWebapplicationsAppliance',
                                                                           'applianceUpdate'],
+                                                          'Flux' => ['PluginWebapplicationsFlux',
+                                                                          'fluxUpdate'],
                                                           'Database' => ['PluginWebapplicationsDatabase',
                                                                           'databaseUpdate']];
 

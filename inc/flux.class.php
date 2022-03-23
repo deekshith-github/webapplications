@@ -1,4 +1,5 @@
 <?php
+
 /*
  * @version $Id: HEADER 15930 2011-10-30 15:47:55Z tsmr $
  -------------------------------------------------------------------------
@@ -27,7 +28,55 @@
  --------------------------------------------------------------------------
  */
 
-include('../../../inc/includes.php');
+if (!defined('GLPI_ROOT')) {
+   die("Sorry. You can't access directly to this file");
+}
 
-$dropdown = new PluginWebapplicationsWebapplicationConfidentiality();
-include(GLPI_ROOT . "/front/dropdown.common.form.php");
+use Glpi\Application\View\TemplateRenderer;
+
+/**
+ * Class PluginWebapplicationsFlux
+ */
+class PluginWebapplicationsFlux extends CommonDBTM {
+
+   static function getTypeName($nb = 0) {
+
+      return _n('Flux', 'Flux', $nb, 'webapplications');
+   }
+
+    static function getMenuContent() {
+
+        $menu = [];
+
+        $menu['title']           = PluginWebapplicationsFlux::getMenuName();
+        $menu['page']            = PluginWebapplicationsFlux::getSearchURL(false);
+        $menu['links']['search'] = PluginWebapplicationsFlux::getSearchURL(false);
+        //if (self::canCreate()) {
+            $menu['links']['add'] = "/plugins/webapplications/front/flux.form.php";
+       // }
+
+        $menu['icon'] = self::getIcon();
+
+
+        return $menu;
+    }
+
+    static function getIcon() {
+        return "fas fa-rss";
+    }
+
+    function showForm($ID, $options = []) {
+
+        $this->initForm($ID, $options);
+        $this->showFormHeader($options);
+
+
+        $this->showFormButtons($options);
+
+        Html::closeForm();
+
+    }
+
+
+
+}
