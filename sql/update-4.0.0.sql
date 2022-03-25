@@ -31,3 +31,18 @@ CREATE TABLE `glpi_plugin_webapplications_databases` (
    PRIMARY KEY  (`id`),
    KEY `databases_id` (`databases_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `glpi_plugin_webapplications_streams`;
+CREATE TABLE `glpi_plugin_webapplications_streams` (
+   `id` int unsigned NOT NULL auto_increment,
+   `streams_id` int unsigned NOT NULL,
+   `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `transmitter` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `receiver` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `encryption` TINYINT(1) NOT NULL default '0',
+   `encryption_type` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `ports` int(5) unsigned NOT NULL,
+   `protocole` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   PRIMARY KEY  (`id`),
+   KEY `streams_id` (`streams_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;

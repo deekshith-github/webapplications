@@ -35,31 +35,36 @@ if (!defined('GLPI_ROOT')) {
 use Glpi\Application\View\TemplateRenderer;
 
 /**
- * Class PluginWebapplicationsFlux
+ * Class PluginWebapplicationsStream
  */
-class PluginWebapplicationsFlux extends CommonDBTM {
+class PluginWebapplicationsStream extends CommonDBTM {
+
+    static $rightname         = "plugin_webapplications_streams";
 
    static function getTypeName($nb = 0) {
 
-      return _n('Flux', 'Flux', $nb, 'webapplications');
+      return _n('Stream', 'Streams', $nb, 'webapplications');
    }
 
     static function getMenuContent() {
 
         $menu = [];
 
-        $menu['title']           = PluginWebapplicationsFlux::getMenuName();
-        $menu['page']            = PluginWebapplicationsFlux::getSearchURL(false);
-        $menu['links']['search'] = PluginWebapplicationsFlux::getSearchURL(false);
-        //if (self::canCreate()) {
-            $menu['links']['add'] = "/plugins/webapplications/front/flux.form.php";
-       // }
+        $menu['title']           = PluginWebapplicationsStream::getMenuName();
+        $menu['page']            = PluginWebapplicationsStream::getSearchURL(false);
+        $menu['links']['search'] = PluginWebapplicationsStream::getSearchURL(false);
+        if (self::canCreate()) {
+            $menu['links']['add'] = "/plugins/webapplications/front/stream.form.php";
+        }
 
         $menu['icon'] = self::getIcon();
 
 
         return $menu;
     }
+
+    
+
 
     static function getIcon() {
         return "fas fa-rss";
@@ -68,15 +73,17 @@ class PluginWebapplicationsFlux extends CommonDBTM {
     function showForm($ID, $options = []) {
 
         $this->initForm($ID, $options);
-        $this->showFormHeader($options);
 
 
-        $this->showFormButtons($options);
+        TemplateRenderer::getInstance()->display('@webapplications/webapplication_stream_form.html.twig', [
+            'item'   => $this,
+            'params' => $options,
+        ]);
 
         Html::closeForm();
 
+
+
     }
-
-
 
 }

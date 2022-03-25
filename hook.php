@@ -40,7 +40,7 @@ function plugin_webapplications_install() {
    if (!$DB->tableExists("glpi_plugin_webapplications_webapplicationtypes")
        && !$DB->tableExists("glpi_plugin_webapplications_appliances")
        || !$DB->tableExists("glpi_plugin_webapplications_databases")
-       || !$DB->tableExists("glpi_plugin_webapplications_flux")) {
+       || !$DB->tableExists("glpi_plugin_webapplications_streams")) {
 
       $DB->runFile(GLPI_ROOT . "/plugins/webapplications/sql/empty-4.0.0.sql");
 
@@ -129,7 +129,7 @@ function plugin_webapplications_install() {
    if ($DB->tableExists("glpi_plugin_webapplications_webapplications")
        && !$DB->tableExists("glpi_plugin_webapplications_appliances")
        || !$DB->tableExists("glpi_plugin_webapplications_databases")
-       || !$DB->tableExists("glpi_plugin_webapplications_flux")) {
+       || !$DB->tableExists("glpi_plugin_webapplications_streams")) {
       $DB->runFile(GLPI_ROOT . "/plugins/webapplications/sql/update-4.0.0.sql");
    }
 
@@ -161,7 +161,10 @@ function plugin_webapplications_install() {
       Plugin::migrateItemType([1200 => "PluginAppliancesAppliance"],
                               ["glpi_plugin_webapplications_webapplications_items"]);
 
-      Plugin::migrateItemType([2400 => "PluginDatabasesDatabase"],
+      Plugin::migrateItemType([1400 => "PluginDatabasesDatabase"],
+                              ["glpi_plugin_webapplications_webapplications_items"]);
+
+      Plugin::migrateItemType([1500 => "PluginDatabasesStream"],
                               ["glpi_plugin_webapplications_webapplications_items"]);
    }
 
@@ -186,7 +189,7 @@ function plugin_webapplications_uninstall() {
 
    $tables = ["glpi_plugin_webapplications_appliances",
               "glpi_plugin_webapplications_databases",
-              "glpi_plugin_webapplications_flux",
+              "glpi_plugin_webapplications_streams",
               "glpi_plugin_webapplications_webapplicationtypes",
               "glpi_plugin_webapplications_webapplicationservertypes",
               "glpi_plugin_webapplications_webapplicationtechnics",
@@ -247,7 +250,7 @@ function plugin_webapplications_getDatabaseRelations() {
    if ($plugin->isActivated("webapplications")) {
       return ["glpi_appliances" => ["glpi_plugin_webapplications_appliances" => "appliances_id"],
               "glpi_databases" => ["glpi_plugin_webapplications_databases" => "databases_id"],
-              "glpi_flux" => ["glpi_plugin_webapplications_flux" => "flux_id"]];
+              "glpi_streams" => ["glpi_plugin_webapplications_streams" => "streams_id"]];
    }
 
    return [];

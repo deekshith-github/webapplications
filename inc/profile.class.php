@@ -68,7 +68,7 @@ class PluginWebapplicationsProfile extends Profile {
 
          self::addDefaultProfileInfos($ID,
                                       ['plugin_webapplications'             => 0,
-                                          'plugin_webapplications_flux'     => 0,
+                                          'plugin_webapplications_streams'     => 0,
                                             'plugin_webapplications_open_ticket' => 0]);
          $prof->showForm($ID);
       }
@@ -83,7 +83,7 @@ class PluginWebapplicationsProfile extends Profile {
       //85
       self::addDefaultProfileInfos($ID,
                                    ['plugin_webapplications'             => 127,
-                                         'plugin_webapplications_open_ticket' => 1, 'plugin_webapplications_flux' => READ + CREATE + UPDATE + PURGE], true);
+                                         'plugin_webapplications_open_ticket' => 1, 'plugin_webapplications_streams' => READ + CREATE + UPDATE + PURGE], true);
    }
 
    /**
@@ -177,9 +177,9 @@ class PluginWebapplicationsProfile extends Profile {
                'label'    => _n('Web application', 'Web applications', 2, 'webapplications'),
                'field'    => 'plugin_webapplications'
          ],
-          ['itemtype' => 'PluginWebapplicationsFlux',
-              'label'    => PluginWebapplicationsFlux::getTypeName(2),
-              'field'    => 'plugin_webapplications_flux'
+          ['itemtype' => 'PluginWebapplicationsStream',
+              'label'    => _n('Stream', 'Streams', 2, 'webapplications'),
+              'field'    => 'plugin_webapplications_streams'
           ]
       ];
 

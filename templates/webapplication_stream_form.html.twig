@@ -1,0 +1,53 @@
+{% import "components/form/fields_macros.html.twig" as fields %}
+
+
+{% extends "generic_show_form.html.twig" %}
+
+{% block more_fields %}
+
+    {{ fields.noLabelField(
+        html_side
+    ) }}
+
+    {{ fields.autoNameField(
+        'transmitter',
+        item,
+        __('Transmitter', 'webapplications'),
+        withtemplate
+    ) }}
+
+    {{ fields.autoNameField(
+        'receiver',
+        item,
+        __('Receiver', 'webapplications'),
+        withtemplate
+    ) }}
+
+    {{ fields.dropdownYesNo(
+        "encryption",
+        item.fields['encryption'],
+        __('Encryption', 'webapplications'),
+    ) }}
+
+    {{ fields.autoNameField(
+        'encryption_type',
+        item,
+        __('Encryption type', 'webapplications'),
+        withtemplate
+    ) }}
+
+    {{ fields.autoNameField(
+        'ports',
+        item,
+        __('Ports', 'webapplications'),
+        withtemplate
+    ) }}
+
+    {{ fields.autoNameField(
+        'protocole',
+        item,
+        __('Protocole', 'webapplications'),
+        withtemplate
+    ) }}
+{% endblock %}
+

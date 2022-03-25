@@ -45,7 +45,7 @@ function plugin_init_webapplications() {
 
     if (Session::getLoginUserID()) {
         if (Session::haveRight("plugin_webapplications", READ)) {
-            $PLUGIN_HOOKS['menu_toadd']['webapplications'] = ['management' => 'PluginWebapplicationsFlux'];
+            $PLUGIN_HOOKS['menu_toadd']['webapplications'] = ['management' => 'PluginWebapplicationsStream'];
         }
     }
    //if glpi is loaded
@@ -66,20 +66,20 @@ function plugin_init_webapplications() {
 
    $PLUGIN_HOOKS['item_purge']['webapplications']['Appliance'] = ['PluginWebapplicationsAppliance', 'cleanRelationToAppliance'];
    $PLUGIN_HOOKS['item_purge']['webapplications']['Database'] = ['PluginWebapplicationsDatabase', 'cleanRelationToDatabase'];
-   $PLUGIN_HOOKS['item_purge']['webapplications']['Flux'] = ['PluginWebapplicationsFlux', 'cleanRelationToDatabase'];
+   $PLUGIN_HOOKS['item_purge']['webapplications']['Stream'] = ['PluginWebapplicationsStream', 'cleanRelationToDatabase'];
 
    // Other fields inherited from webapplications
    $PLUGIN_HOOKS['item_add']['webapplications']       = ['Appliance' => ['PluginWebapplicationsAppliance',
                                                                          'applianceAdd'],
-                                                         'Flux' => ['PluginWebapplicationsFlux',
-                                                                         'fluxAdd'],
+                                                         'Stream' => ['PluginWebapplicationsStream',
+                                                                         'streamAdd'],
                                                          'Database' => ['PluginWebapplicationsDatabase',
                                                                          'databaseAdd']];
 
    $PLUGIN_HOOKS['pre_item_update']['webapplications'] = ['Appliance' => ['PluginWebapplicationsAppliance',
                                                                           'applianceUpdate'],
-                                                          'Flux' => ['PluginWebapplicationsFlux',
-                                                                          'fluxUpdate'],
+                                                          'Stream' => ['PluginWebapplicationsStream',
+                                                                          'streamUpdate'],
                                                           'Database' => ['PluginWebapplicationsDatabase',
                                                                           'databaseUpdate']];
 

@@ -30,15 +30,15 @@
 
 include('../../../inc/includes.php');
 
-Session::checkRight("plugin_webapplications_flux", READ);
+Session::checkRight("plugin_webapplications_streams", READ);
 
-Html::header(PluginWebapplicationsFlux::getTypeName(2), $_SERVER['PHP_SELF'], "management", 'pluginwebapplicationsflux');
+Html::header(PluginWebapplicationsStream::getTypeName(2), $_SERVER['PHP_SELF'], "management", 'pluginwebapplicationsstream');
 
-Search::show('PluginWebapplicationsFlux');
+Search::show('PluginWebapplicationsStream');
 
 Html::footer();
 
 
 
-Session::checkRight("plugin_servicecatalog_links", READ);
+Session::checkRight("plugin_webapplications_streams", READ);
 

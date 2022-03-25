@@ -94,10 +94,10 @@ CREATE TABLE `glpi_plugin_webapplications_databases` (
    KEY `databases_id` (`databases_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_flux`;
-CREATE TABLE `glpi_plugin_webapplications_flux` (
+DROP TABLE IF EXISTS `glpi_plugin_webapplications_streams`;
+CREATE TABLE `glpi_plugin_webapplications_streams` (
    `id` int unsigned NOT NULL auto_increment,
-   `flux_id` int unsigned NOT NULL,
+   `streams_id` int unsigned NOT NULL,
    `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `transmitter` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `receiver` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -106,6 +106,6 @@ CREATE TABLE `glpi_plugin_webapplications_flux` (
    `ports` int(5) unsigned NOT NULL,
    `protocole` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    PRIMARY KEY  (`id`),
-   KEY `flux_id` (`flux_id`)
+   KEY `streams_id` (`streams_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 

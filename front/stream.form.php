@@ -30,7 +30,7 @@
 include('../../../inc/includes.php');
 
 
-//Session::checkLoginUser();
+Session::checkLoginUser();
 
 use Glpi\Event;
 
@@ -42,38 +42,38 @@ if (!isset($_GET["withtemplate"])) {
 }
 
 
-$flux = new PluginWebapplicationsFlux();
+$stream = new PluginWebapplicationsStream();
 
 if (isset($_POST["add"])) {
 
-    $flux->check(-1, CREATE, $_POST);
-
-    $newID = $flux->add($_POST);
+    $stream->check(-1, CREATE, $_POST);
+    $newID = $stream->add($_POST);
     if ($_SESSION['glpibackcreated']) {
-        Html::redirect($flux->getFormURL() . "?id=" . $newID);
+        Html::redirect($stream->getFormURL() . "?id=" . $newID);
     }
     Html::back();
+
 } else if (isset($_POST["delete"])) {
 
-    $flux->check($_POST['id'], DELETE);
-    $flux->delete($_POST);
-    $flux->redirectToList();
+    $stream->check($_POST['id'], DELETE);
+    $stream->delete($_POST);
+    $stream->redirectToList();
 
 } else if (isset($_POST["restore"])) {
 
-    $flux->check($_POST['id'], PURGE);
-    $flux->restore($_POST);
-    $flux->redirectToList();
+    $stream->check($_POST['id'], PURGE);
+    $stream->restore($_POST);
+    $stream->redirectToList();
 
 } else if (isset($_POST["purge"])) {
-    $flux->check($_POST['id'], PURGE);
-    $flux->delete($_POST, 1);
-    $flux->redirectToList();
+    $stream->check($_POST['id'], PURGE);
+    $stream->delete($_POST, 1);
+    $stream->redirectToList();
 
 } else if (isset($_POST["update"])) {
 
-    $flux->check($_POST['id'], UPDATE);
-    $flux->update($_POST);
+    $stream->check($_POST['id'], UPDATE);
+    $stream->update($_POST);
     Html::back();
 
 }
@@ -81,9 +81,8 @@ else {
 
     if (Session::getCurrentInterface() == "central") {
 
-
-        Html::header(PluginWebapplicationsFlux::getTypeName(2), $_SERVER['PHP_SELF'], "management", "pluginwebapplicationsflux", "config");
-        $flux->display(['id' => $_GET["id"]]);
+        Html::header(PluginWebapplicationsStream::getTypeName(2), $_SERVER['PHP_SELF'], "management", "pluginwebapplicationsstream", "config");
+        $stream->display(['id' => $_GET["id"]]);
     }
 
 }
