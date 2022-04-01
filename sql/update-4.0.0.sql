@@ -46,3 +46,18 @@ CREATE TABLE `glpi_plugin_webapplications_streams` (
    PRIMARY KEY  (`id`),
    KEY `streams_id` (`streams_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `glpi_plugin_webapplications_processes`;
+CREATE TABLE `glpi_plugin_webapplications_processes` (
+   `id` int unsigned NOT NULL auto_increment,
+   `process_id` int unsigned NOT NULL,
+   `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `owner` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `webapplicationavailabilities` int unsigned   NOT NULL     DEFAULT '1',
+   `webapplicationintegrities` int unsigned   NOT NULL     DEFAULT '1',
+   `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
+   `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1',
+   `comment` varchar(255) DEFAULT NULL,
+   PRIMARY KEY  (`id`),
+   KEY `processes_id` (`process_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;

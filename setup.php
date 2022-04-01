@@ -42,12 +42,18 @@ function plugin_init_webapplications() {
 
    Plugin::registerClass('PluginWebapplicationsProfile', ['addtabon' => ['Profile']]);
 
+   Plugin::registerClass('PluginWebapplicationsProcess', ['addtabon' => ['Process']]);
+
+
 
     if (Session::getLoginUserID()) {
         if (Session::haveRight("plugin_webapplications", READ)) {
-            $PLUGIN_HOOKS['menu_toadd']['webapplications'] = ['management' => 'PluginWebapplicationsStream'];
+            $PLUGIN_HOOKS['menu_toadd']['webapplications']['management'] = array('PluginWebapplicationsStream','PluginWebapplicationsProcess');
+
         }
     }
+
+
    //if glpi is loaded
 //   if (Session::getLoginUserID()) {
 //
@@ -67,12 +73,15 @@ function plugin_init_webapplications() {
    $PLUGIN_HOOKS['item_purge']['webapplications']['Appliance'] = ['PluginWebapplicationsAppliance', 'cleanRelationToAppliance'];
    $PLUGIN_HOOKS['item_purge']['webapplications']['Database'] = ['PluginWebapplicationsDatabase', 'cleanRelationToDatabase'];
    $PLUGIN_HOOKS['item_purge']['webapplications']['Stream'] = ['PluginWebapplicationsStream', 'cleanRelationToDatabase'];
+   $PLUGIN_HOOKS['item_purge']['webapplications']['Process'] = ['PluginWebapplicationsProcess', 'cleanRelationToDatabase'];
 
    // Other fields inherited from webapplications
    $PLUGIN_HOOKS['item_add']['webapplications']       = ['Appliance' => ['PluginWebapplicationsAppliance',
                                                                          'applianceAdd'],
                                                          'Stream' => ['PluginWebapplicationsStream',
                                                                          'streamAdd'],
+                                                         'Process' => ['PluginWebapplicationsProcess',
+                                                                         'processAdd'],
                                                          'Database' => ['PluginWebapplicationsDatabase',
                                                                          'databaseAdd']];
 
@@ -80,10 +89,12 @@ function plugin_init_webapplications() {
                                                                           'applianceUpdate'],
                                                           'Stream' => ['PluginWebapplicationsStream',
                                                                           'streamUpdate'],
+                                                          'Process' => ['PluginWebapplicationsProcess',
+                                                                            'processUpdate'],
                                                           'Database' => ['PluginWebapplicationsDatabase',
                                                                           'databaseUpdate']];
 
-   if (strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true) {
+   if (strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/process.form.php") ==true) {
         $PLUGIN_HOOKS["add_javascript"]['webapplications'][] = 'scripts/securityneedscolor.js.php';
    }
 

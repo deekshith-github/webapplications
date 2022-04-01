@@ -30,10 +30,11 @@
 
 include('../../../inc/includes.php');
 
-Session::checkRight("plugin_webapplications_streams", READ);
+Session::checkRight("plugin_webapplications_processes", READ);
 
-Html::header(PluginWebapplicationsStream::getTypeName(2), $_SERVER['PHP_SELF'], "management", 'pluginwebapplicationsstream');
+Html::header(PluginWebapplicationsProcess::getTypeName(2), $_SERVER['PHP_SELF'], "management", 'pluginwebapplicationsprocess');
 
-Search::show('PluginWebapplicationsStream');
+Search::show('PluginWebapplicationsProcess');
 
 Html::footer();
+

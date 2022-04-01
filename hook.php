@@ -40,7 +40,8 @@ function plugin_webapplications_install() {
    if (!$DB->tableExists("glpi_plugin_webapplications_webapplicationtypes")
        && !$DB->tableExists("glpi_plugin_webapplications_appliances")
        || !$DB->tableExists("glpi_plugin_webapplications_databases")
-       || !$DB->tableExists("glpi_plugin_webapplications_streams")) {
+       || !$DB->tableExists("glpi_plugin_webapplications_streams")
+       || !$DB->tableExists("glpi_plugin_webapplications_processes")) {
 
       $DB->runFile(GLPI_ROOT . "/plugins/webapplications/sql/empty-4.0.0.sql");
 
@@ -129,7 +130,8 @@ function plugin_webapplications_install() {
    if ($DB->tableExists("glpi_plugin_webapplications_webapplications")
        && !$DB->tableExists("glpi_plugin_webapplications_appliances")
        || !$DB->tableExists("glpi_plugin_webapplications_databases")
-       || !$DB->tableExists("glpi_plugin_webapplications_streams")) {
+       || !$DB->tableExists("glpi_plugin_webapplications_streams")
+       || !$DB->tableExists("glpi_plugin_webapplications_processes")) {
       $DB->runFile(GLPI_ROOT . "/plugins/webapplications/sql/update-4.0.0.sql");
    }
 
@@ -190,6 +192,7 @@ function plugin_webapplications_uninstall() {
    $tables = ["glpi_plugin_webapplications_appliances",
               "glpi_plugin_webapplications_databases",
               "glpi_plugin_webapplications_streams",
+              "glpi_plugin_webapplications_processes",
               "glpi_plugin_webapplications_webapplicationtypes",
               "glpi_plugin_webapplications_webapplicationservertypes",
               "glpi_plugin_webapplications_webapplicationtechnics",
@@ -250,7 +253,8 @@ function plugin_webapplications_getDatabaseRelations() {
    if ($plugin->isActivated("webapplications")) {
       return ["glpi_appliances" => ["glpi_plugin_webapplications_appliances" => "appliances_id"],
               "glpi_databases" => ["glpi_plugin_webapplications_databases" => "databases_id"],
-              "glpi_streams" => ["glpi_plugin_webapplications_streams" => "streams_id"]];
+              "glpi_streams" => ["glpi_plugin_webapplications_streams" => "streams_id"],
+              "glpi_processes" => ["glpi_plugin_webapplications_processes" => "processes_id"]];
    }
 
    return [];
