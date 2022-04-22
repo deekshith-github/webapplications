@@ -22,7 +22,7 @@ CREATE TABLE `glpi_plugin_webapplications_webapplicationtypes` (
   `name`         VARCHAR(255)
                  COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `comment`      TEXT COLLATE utf8mb4_unicode_ci,
-  `is_recursive` TINYINT(1) NOT NULL DEFAULT '0',
+  `is_recursive` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `name` (`name`),
   KEY `entities_id` (`entities_id`)
@@ -68,8 +68,8 @@ CREATE TABLE `glpi_plugin_webapplications_appliances` (
         COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationtechnics (id)',
    `webapplicationexternalexpositions_id` int unsigned  NOT NULL     DEFAULT '0'
        COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationexternalexpositions (id)',
-   `webapplicationreferringdepartmentvalidation` TINYINT(1) NOT NULL default '0',
-   `webapplicationciovalidation` TINYINT(1) NOT NULL default '0',
+   `webapplicationreferringdepartmentvalidation` tinyint NOT NULL default '0',
+   `webapplicationciovalidation` tinyint NOT NULL default '0',
    `webapplicationavailabilities` int unsigned   NOT NULL     DEFAULT '1',
    `webapplicationintegrities` int unsigned   NOT NULL     DEFAULT '1',
    `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
@@ -101,7 +101,7 @@ CREATE TABLE `glpi_plugin_webapplications_streams` (
    `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `transmitter` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `receiver` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-   `encryption` TINYINT(1) NOT NULL default '0',
+   `encryption` tinyint NOT NULL default '0',
    `encryption_type` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `ports` int(5) unsigned NOT NULL,
    `protocole` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -122,5 +122,17 @@ CREATE TABLE `glpi_plugin_webapplications_processes` (
    `comment` varchar(255) DEFAULT NULL,
    PRIMARY KEY  (`id`),
    KEY `processes_id` (`process_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `glpi_plugin_webapplications_entities`;
+CREATE TABLE `glpi_plugin_webapplications_entities` (
+   `id` int unsigned NOT NULL auto_increment,
+   `entity_id` int unsigned NOT NULL,
+   `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `owner` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `security_contact` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `relation_nature` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   PRIMARY KEY  (`id`),
+   KEY `entities_id` (`entity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 

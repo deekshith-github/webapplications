@@ -36,16 +36,18 @@ use Glpi\Application\View\TemplateRenderer;
 
 
 /**
- * Class PluginWebapplicationsProcess
+ * Class PluginWebapplicationsEntity
  */
-class PluginWebapplicationsProcess extends CommonDBTM {
+class PluginWebapplicationsEntity extends CommonDBTM {
 
     use Glpi\Features\Inventoriable;
-    static $rightname         = "plugin_webapplications_processes";
+    static $rightname         = "plugin_webapplications_entities";
+
+
 
    static function getTypeName($nb = 0) {
 
-      return _n('Process', 'Processes', $nb, 'webapplications');
+      return _n('Entity', 'Entities', $nb, 'webapplications');
    }
 
     static function getMenuContent() {
@@ -67,14 +69,14 @@ class PluginWebapplicationsProcess extends CommonDBTM {
 
 
     static function getIcon() {
-        return "fas fa-cogs";
+        return "fas fa-users";
     }
 
     function showForm($ID, $options = []) {
 
         $this->initForm($ID, $options);
 
-        TemplateRenderer::getInstance()->display('@webapplications/webapplication_process_form.html.twig', [
+        TemplateRenderer::getInstance()->display('@webapplications/webapplication_entity_form.html.twig', [
             'item'   => $this,
             'params' => $options,
         ]);
@@ -86,14 +88,14 @@ class PluginWebapplicationsProcess extends CommonDBTM {
         $ong = [];
         //add main tab for current object
         $this->addDefaultFormTab($ong);
-        $this->addStandardTab('Appliance_Item', $ong, $options);
+        $this->addStandardTab('PluginWebapplicationsProcess', $ong, $options);
         return $ong;
     }
 
     function getTabNameForItem(CommonGLPI $item, $withtemplate=0) {
         switch ($item::getType()) {
-            case 'Appliance_Item':
-                return __('Appliance', 'webapplications');
+            case 'PluginWebapplicationsProcess':
+                return __('Processes', 'webapplications');
                 break;
         }
         return '';
@@ -101,7 +103,7 @@ class PluginWebapplicationsProcess extends CommonDBTM {
 
     static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0) {
 
-        if ($item->getType() == 'Appliance_Item') {
+        if ($item->getType() == 'PluginWebapplicationsProcess') {
             self::showForm($item->getField('id'));
         }
         return true;

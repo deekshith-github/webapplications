@@ -29,6 +29,13 @@
 
 define('PLUGIN_WEBAPPLICATIONS_VERSION', '4.0.0');
 
+if (!defined("PLUGIN_WEBAPPLICATIONS_DIR")) {
+    define("PLUGIN_WEBAPPLICATIONS_DIR", Plugin::getPhpDir("webapplications"));
+    define("PLUGIN_WEBAPPLICATIONS_DIR_NOFULL", Plugin::getPhpDir("webapplications",false));
+    define("PLUGIN_WEBAPPLICATIONS_WEBDIR", Plugin::getWebDir("webapplications"));
+}
+
+
 // Init the hooks of the plugins -Needed
 function plugin_init_webapplications() {
    global $PLUGIN_HOOKS;
@@ -38,17 +45,15 @@ function plugin_init_webapplications() {
    $PLUGIN_HOOKS['change_profile']['webapplications']   = ['PluginWebapplicationsProfile',
       'initProfile'];
 
-
-
    Plugin::registerClass('PluginWebapplicationsProfile', ['addtabon' => ['Profile']]);
 
    Plugin::registerClass('PluginWebapplicationsProcess', ['addtabon' => ['Process']]);
 
-
+   Plugin::registerClass('PluginWebapplicationsProcess', ['addtabon' => ['PluginWebapplicationsEntity']]);
 
     if (Session::getLoginUserID()) {
         if (Session::haveRight("plugin_webapplications", READ)) {
-            $PLUGIN_HOOKS['menu_toadd']['webapplications']['management'] = array('PluginWebapplicationsStream','PluginWebapplicationsProcess');
+            $PLUGIN_HOOKS['menu_toadd']['webapplications']['management'] = array('PluginWebapplicationsStream','PluginWebapplicationsProcess','PluginWebapplicationsEntity');
 
         }
     }
@@ -63,38 +68,28 @@ function plugin_init_webapplications() {
 //      }
 //   }
 
-    if (strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true){
+    if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true){
         $PLUGIN_HOOKS['post_item_form']['webapplications']= ['PluginWebapplicationsAppliance', 'addFields'];
     }
-    elseif (strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true) {
+    elseif (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true) {
         $PLUGIN_HOOKS['post_item_form']['webapplications'] = ['PluginWebapplicationsDatabase', 'addFields'];
     }
 
    $PLUGIN_HOOKS['item_purge']['webapplications']['Appliance'] = ['PluginWebapplicationsAppliance', 'cleanRelationToAppliance'];
    $PLUGIN_HOOKS['item_purge']['webapplications']['Database'] = ['PluginWebapplicationsDatabase', 'cleanRelationToDatabase'];
-   $PLUGIN_HOOKS['item_purge']['webapplications']['Stream'] = ['PluginWebapplicationsStream', 'cleanRelationToDatabase'];
-   $PLUGIN_HOOKS['item_purge']['webapplications']['Process'] = ['PluginWebapplicationsProcess', 'cleanRelationToDatabase'];
 
    // Other fields inherited from webapplications
    $PLUGIN_HOOKS['item_add']['webapplications']       = ['Appliance' => ['PluginWebapplicationsAppliance',
                                                                          'applianceAdd'],
-                                                         'Stream' => ['PluginWebapplicationsStream',
-                                                                         'streamAdd'],
-                                                         'Process' => ['PluginWebapplicationsProcess',
-                                                                         'processAdd'],
                                                          'Database' => ['PluginWebapplicationsDatabase',
                                                                          'databaseAdd']];
 
    $PLUGIN_HOOKS['pre_item_update']['webapplications'] = ['Appliance' => ['PluginWebapplicationsAppliance',
                                                                           'applianceUpdate'],
-                                                          'Stream' => ['PluginWebapplicationsStream',
-                                                                          'streamUpdate'],
-                                                          'Process' => ['PluginWebapplicationsProcess',
-                                                                            'processUpdate'],
                                                           'Database' => ['PluginWebapplicationsDatabase',
                                                                           'databaseUpdate']];
 
-   if (strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/process.form.php") ==true) {
+   if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/process.form.php") ==true ) {
         $PLUGIN_HOOKS["add_javascript"]['webapplications'][] = 'scripts/securityneedscolor.js.php';
    }
 

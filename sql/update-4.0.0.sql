@@ -9,10 +9,9 @@ CREATE TABLE `glpi_plugin_webapplications_webapplicationexternalexpositions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
 ALTER TABLE `glpi_plugin_webapplications_appliances`
-
   ADD `webapplicationexternalexpositions_id` int unsigned  NOT NULL     DEFAULT '0',
-  ADD `webapplicationreferringdepartmentvalidation` TINYINT(1) NOT NULL default '0',
-  ADD `webapplicationciovalidation` TINYINT(1) NOT NULL default '0',
+  ADD `webapplicationreferringdepartmentvalidation` tinyint NOT NULL default '0',
+  ADD `webapplicationciovalidation` tinyint NOT NULL default '0',
   ADD `webapplicationavailabilities` int unsigned   NOT NULL     DEFAULT '1',
   ADD `webapplicationintegrities` int unsigned   NOT NULL     DEFAULT '1',
   ADD `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
@@ -39,7 +38,7 @@ CREATE TABLE `glpi_plugin_webapplications_streams` (
    `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `transmitter` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `receiver` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-   `encryption` TINYINT(1) NOT NULL default '0',
+   `encryption` tinyint NOT NULL default '0',
    `encryption_type` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `ports` int(5) unsigned NOT NULL,
    `protocole` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -60,4 +59,16 @@ CREATE TABLE `glpi_plugin_webapplications_processes` (
    `comment` varchar(255) DEFAULT NULL,
    PRIMARY KEY  (`id`),
    KEY `processes_id` (`process_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+DROP TABLE IF EXISTS `glpi_plugin_webapplications_entities`;
+CREATE TABLE `glpi_plugin_webapplications_entities` (
+   `id` int unsigned NOT NULL auto_increment,
+   `entity_id` int unsigned NOT NULL,
+   `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `owner` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `securitycontact` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `relationnature` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   PRIMARY KEY  (`id`),
+   KEY `entities_id` (`entity_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;

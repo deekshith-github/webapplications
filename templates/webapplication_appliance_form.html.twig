@@ -52,7 +52,6 @@
                         ) }}
                     {% endif %}
 
-
                     {% if item.isField('webapplicationexternalexpositions_id') %}
                         {{ fields.dropdownField(
                             "PluginWebapplicationsWebapplicationExternalExposition",
@@ -62,7 +61,15 @@
                         ) }}
                     {% endif %}
 
-                    {{ fields.smallTitle(__('Security Needs')) }}
+
+                    {{ fields.smallTitle(__('Security Needs'))}}
+                    <a><h2 class="fas fa-info fa-fw"
+                           title="Critères DICT :
+Disponibilité (D) : Identifier l’impact sur la disponibilité de l’actif informatique suite à la réalisation du changement
+Intégrité (I) : Identifier l’impact sur les données gérées par l’actif informatique
+Confidentialité (C) : Identifier l’impact sur les traitements de l’actif informatique liés à la confidentialité des données
+Traçabilité (T) : Identifier l’impact sur les traitements de l’actif informatique liés à la traçabilité des données"></h2>
+                    </a>
                     <table>
                         <tbody>
                         <tr>
@@ -81,7 +88,6 @@
                                             'input_class': 'col-xxl-4',}
                                     ) }}
                                 {% endif %}
-
                             </td>
                             <td>
                                 {% if item.isField('webapplicationintegrities') %}
@@ -137,10 +143,6 @@
                         </tbody>
                     </table>
 
-
-
-
-
                     {{ fields.smallTitle(__('Installation')) }}
 
                     {% if item.isField('webapplicationreferringdepartmentvalidation') %}
@@ -158,6 +160,8 @@
                             __('Validation by CIO', 'webapplications'),
                         ) }}
                     {% endif %}
+
+
 
                 </div> {# .row #}
             </div> {# .row #}
