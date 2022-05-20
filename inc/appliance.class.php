@@ -145,4 +145,13 @@ class PluginWebapplicationsAppliance extends CommonDBTM {
       $temp->deleteByCriteria(['appliances_id' => $item->getID()]);
 
    }
+
+    function getTabNameForItem(CommonGLPI $item, $withtemplate=0) {
+        switch ($item::getType()) {
+            case 'PluginWebapplicationsProcess':
+                return __('Appliance', 'webapplications');
+                break;
+        }
+        return '';
+    }
 }

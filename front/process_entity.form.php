@@ -41,59 +41,23 @@ if (!isset($_GET["withtemplate"])) {
     $_GET["withtemplate"] = "";
 }
 
-
-$entity = new PluginWebapplicationsEntity();
+$process = new PluginWebapplicationsProcess();
+$processEntity = new PluginWebapplicationsProcess_Entity();
 
 if (isset($_POST["add"])) {
 
-    $entity->check(-1, CREATE, $_POST);
-    $newID = $entity->add($_POST);
+    $process->check(-1, CREATE, $_POST);
+    $newID = $processEntity->add($_POST);
     if ($_SESSION['glpibackcreated']) {
-        Html::redirect($entity->getFormURL() . "?id=" . $newID);
+        Html::redirect($processEntity->getFormURL() . "?id=" . $newID);
     }
     Html::back();
 
-} else if (isset($_POST["delete"])) {
-
-    $entity->check($_POST['id'], DELETE);
-    $entity->delete($_POST);
-    $entity->redirectToList();
-
-} else if (isset($_POST["restore"])) {
-
-    $entity->check($_POST['id'], PURGE);
-    $entity->restore($_POST);
-    $entity->redirectToList();
-
-} else if (isset($_POST["purge"])) {
-    $entity->check($_POST['id'], PURGE);
-    $entity->delete($_POST, 1);
-    $entity->redirectToList();
 
 } else if (isset($_POST["update"])) {
 
-    $entity->check($_POST['id'], UPDATE);
-    $entity->update($_POST);
+    $process->check($_POST['id'], UPDATE);
+    $processEntity->update($_POST);
     Html::back();
 
-}
-else {
-
-    if (Session::getCurrentInterface() == "central") {
-
-        Html::header(PluginWebapplicationsEntity::getTypeName(2), $_SERVER['PHP_SELF'], "management", "pluginwebapplicationsentity", "config");
-        $entity->display(['id' => $_GET["id"]]);
-    }
-
-}
-
-if (Session::getCurrentInterface() != 'central') {
-
-    PluginServicecatalogMain::showNavBarFooter();
-}
-
-if (Session::getCurrentInterface() == "central") {
-    Html::footer();
-} else {
-    Html::helpFooter();
 }

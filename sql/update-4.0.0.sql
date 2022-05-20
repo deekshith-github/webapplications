@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_webapplicationexternalexpositions`;
 CREATE TABLE `glpi_plugin_webapplications_webapplicationexternalexpositions` (
   `id`      int unsigned NOT NULL        AUTO_INCREMENT,
   `name`    VARCHAR(255)
@@ -17,10 +16,9 @@ ALTER TABLE `glpi_plugin_webapplications_appliances`
   ADD `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
   ADD `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1';
 
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_databases`;
 CREATE TABLE `glpi_plugin_webapplications_databases` (
    `id` int unsigned NOT NULL auto_increment,
-   `databases_id` int unsigned NOT NULL,
+   `entities_id`  int unsigned NOT NULL        DEFAULT '0',
    `webapplicationexternalexpositions_id` int unsigned  NOT NULL     DEFAULT '0'
        COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationexternalexpositions (id)',
    `webapplicationavailabilities` int unsigned   NOT NULL     DEFAULT '1',
@@ -28,13 +26,12 @@ CREATE TABLE `glpi_plugin_webapplications_databases` (
    `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
    `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1',
    PRIMARY KEY  (`id`),
-   KEY `databases_id` (`databases_id`)
+   KEY `entities_id` (`entities_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_streams`;
 CREATE TABLE `glpi_plugin_webapplications_streams` (
    `id` int unsigned NOT NULL auto_increment,
-   `streams_id` int unsigned NOT NULL,
+   `entities_id`  int unsigned NOT NULL        DEFAULT '0',
    `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `transmitter` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `receiver` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -43,32 +40,40 @@ CREATE TABLE `glpi_plugin_webapplications_streams` (
    `ports` int(5) unsigned NOT NULL,
    `protocole` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    PRIMARY KEY  (`id`),
-   KEY `streams_id` (`streams_id`)
+   KEY `entities_id` (`entities_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_processes`;
+CREATE TABLE `glpi_plugin_webapplications_entities` (
+   `id` int unsigned NOT NULL auto_increment,
+   `entities_id` int unsigned NOT NULL,
+   `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `owner` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `securitycontact` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `relationnature` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   PRIMARY KEY  (`id`),
+   KEY `entities_id` (`entities_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
 CREATE TABLE `glpi_plugin_webapplications_processes` (
    `id` int unsigned NOT NULL auto_increment,
-   `process_id` int unsigned NOT NULL,
+   `entities_id`  int unsigned NOT NULL        DEFAULT '0',
    `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `owner` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `webapplicationavailabilities` int unsigned   NOT NULL     DEFAULT '1',
    `webapplicationintegrities` int unsigned   NOT NULL     DEFAULT '1',
    `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
    `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1',
+   `is_recursive` tinyint NOT NULL DEFAULT '0',
    `comment` varchar(255) DEFAULT NULL,
    PRIMARY KEY  (`id`),
-   KEY `processes_id` (`process_id`)
+   KEY `entities_id` (`entities_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
-DROP TABLE IF EXISTS `glpi_plugin_webapplications_entities`;
-CREATE TABLE `glpi_plugin_webapplications_entities` (
-   `id` int unsigned NOT NULL auto_increment,
-   `entity_id` int unsigned NOT NULL,
-   `name` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-   `owner` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-   `securitycontact` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-   `relationnature` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-   PRIMARY KEY  (`id`),
-   KEY `entities_id` (`entity_id`)
+
+CREATE TABLE `glpi_plugin_webapplications_processes_entities` (
+    `id` int(11) NOT NULL auto_increment,
+    `plugin_webapplications_entities_id` int unsigned NOT NULL default '0',
+    `plugin_webapplications_processes_id` int unsigned NOT NULL default '0',
+    PRIMARY KEY  (`id`),
+    UNIQUE KEY `unicity` (`plugin_webapplications_entities_id`,`plugin_webapplications_processes_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;

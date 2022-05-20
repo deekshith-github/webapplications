@@ -88,25 +88,10 @@ class PluginWebapplicationsEntity extends CommonDBTM {
         $ong = [];
         //add main tab for current object
         $this->addDefaultFormTab($ong);
-        $this->addStandardTab('PluginWebapplicationsProcess', $ong, $options);
+        $this->addStandardTab('PluginWebapplicationsProcess_Entity', $ong, $options);
         return $ong;
     }
 
-    function getTabNameForItem(CommonGLPI $item, $withtemplate=0) {
-        switch ($item::getType()) {
-            case 'PluginWebapplicationsProcess':
-                return __('Processes', 'webapplications');
-                break;
-        }
-        return '';
-    }
 
-    static function displayTabContentForItem(CommonGLPI $item, $tabnum = 1, $withtemplate = 0) {
-
-        if ($item->getType() == 'PluginWebapplicationsProcess') {
-            self::showForm($item->getField('id'));
-        }
-        return true;
-    }
 
 }

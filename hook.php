@@ -253,8 +253,8 @@ function plugin_webapplications_getDatabaseRelations() {
    if ($plugin->isActivated("webapplications")) {
       return ["glpi_appliances" => ["glpi_plugin_webapplications_appliances" => "appliances_id"],
               "glpi_databases" => ["glpi_plugin_webapplications_databases" => "databases_id"],
-              "glpi_streams" => ["glpi_plugin_webapplications_streams" => "streams_id"],
-              "glpi_processes" => ["glpi_plugin_webapplications_processes" => "processes_id"],
+              "glpi_streams" => ["glpi_plugin_webapplications_streams" => "entities_id"],
+              "glpi_processes" => ["glpi_plugin_webapplications_processes" => "entities_id"],
               "glpi_entities" => ["glpi_plugin_webapplications_entities" => "entities_id"]];
    }
 

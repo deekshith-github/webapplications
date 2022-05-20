@@ -42,38 +42,39 @@ if (!isset($_GET["withtemplate"])) {
 }
 
 
-$stream = new PluginWebapplicationsProcess();
+$process = new PluginWebapplicationsProcess();
 
 if (isset($_POST["add"])) {
 
-    $stream->check(-1, CREATE, $_POST);
-    $newID = $stream->add($_POST);
+    $process->check(-1, CREATE, $_POST);
+    $newID = $process->add($_POST);
     if ($_SESSION['glpibackcreated']) {
-        Html::redirect($stream->getFormURL() . "?id=" . $newID);
+        Html::redirect($process->getFormURL() . "?id=" . $newID);
     }
     Html::back();
 
+
 } else if (isset($_POST["delete"])) {
 
-    $stream->check($_POST['id'], DELETE);
-    $stream->delete($_POST);
-    $stream->redirectToList();
+    $process->check($_POST['id'], DELETE);
+    $process->delete($_POST);
+    $process->redirectToList();
 
 } else if (isset($_POST["restore"])) {
 
-    $stream->check($_POST['id'], PURGE);
-    $stream->restore($_POST);
-    $stream->redirectToList();
+    $process->check($_POST['id'], PURGE);
+    $process->restore($_POST);
+    $process->redirectToList();
 
 } else if (isset($_POST["purge"])) {
-    $stream->check($_POST['id'], PURGE);
-    $stream->delete($_POST, 1);
-    $stream->redirectToList();
+    $process->check($_POST['id'], PURGE);
+    $process->delete($_POST, 1);
+    $process->redirectToList();
 
 } else if (isset($_POST["update"])) {
 
-    $stream->check($_POST['id'], UPDATE);
-    $stream->update($_POST);
+    $process->check($_POST['id'], UPDATE);
+    $process->update($_POST);
     Html::back();
 
 }
@@ -82,7 +83,7 @@ else {
     if (Session::getCurrentInterface() == "central") {
 
         Html::header(PluginWebapplicationsProcess::getTypeName(2), $_SERVER['PHP_SELF'], "management", "pluginwebapplicationsprocess", "config");
-        $stream->display(['id' => $_GET["id"]]);
+        $process->display(['id' => $_GET["id"]]);
     }
 
 }

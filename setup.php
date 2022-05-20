@@ -38,7 +38,7 @@ if (!defined("PLUGIN_WEBAPPLICATIONS_DIR")) {
 
 // Init the hooks of the plugins -Needed
 function plugin_init_webapplications() {
-   global $PLUGIN_HOOKS;
+   global $PLUGIN_HOOKS, $CFG_GLPI;
 
    $PLUGIN_HOOKS['csrf_compliant']['webapplications']   = true;
 
@@ -88,6 +88,8 @@ function plugin_init_webapplications() {
                                                                           'applianceUpdate'],
                                                           'Database' => ['PluginWebapplicationsDatabase',
                                                                           'databaseUpdate']];
+
+   array_push($CFG_GLPI['appliance_types'],'PluginWebapplicationsProcess');
 
    if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/process.form.php") ==true ) {
         $PLUGIN_HOOKS["add_javascript"]['webapplications'][] = 'scripts/securityneedscolor.js.php';
