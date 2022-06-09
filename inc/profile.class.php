@@ -88,6 +88,7 @@ class PluginWebapplicationsProfile extends Profile {
                                          'plugin_webapplications_open_ticket' => 1,
                                          'plugin_webapplications_streams' => READ + CREATE + UPDATE + PURGE,
                                          'plugin_webapplications_entities' => READ + CREATE + UPDATE + PURGE,
+                                         'plugin_webapplications_dashboards' => READ + CREATE + UPDATE + PURGE,
                                          'plugin_webapplications_processes' => READ + CREATE + UPDATE + PURGE], true);
    }
 
@@ -189,6 +190,10 @@ class PluginWebapplicationsProfile extends Profile {
           ['itemtype' => 'PluginWebapplicationsProcess',
               'label'    => _n('Process', 'Processes', 2, 'webapplications'),
               'field'    => 'plugin_webapplications_processes'
+          ],
+          ['itemtype' => 'PluginWebapplicationsDashboard',
+              'label'    => _n('Dashboard', 'Dashboards', 2, 'webapplications'),
+              'field'    => 'plugin_webapplications_dashboards'
           ],
           ['itemtype' => 'PluginWebapplicationsEntity',
               'label'    => _n('Entity', 'Entities', 2, 'webapplications'),

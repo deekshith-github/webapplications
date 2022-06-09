@@ -87,11 +87,6 @@ else {
 
 }
 
-if (Session::getCurrentInterface() != 'central') {
-
-    PluginServicecatalogMain::showNavBarFooter();
-}
-
 if (Session::getCurrentInterface() == "central") {
     Html::footer();
 } else {

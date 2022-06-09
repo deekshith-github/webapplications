@@ -1,0 +1,46 @@
+.accordion {
+    background-color: #1d2228;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: 2px white solid;
+    text-align: left;
+    outline: none;
+    margin-top: 15px;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.accordion:hover {
+    background-color: dimgrey;
+}
+
+.panel {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+}
+
+#entities, #appliances {
+    border:1px solid white;
+    width:60%;
+    color: inherit;
+    font: inherit !important;
+    background-color: inherit;
+}
+
+option {
+    background-color: inherit !important;
+    padding: 5px;
+    border: none !important;
+}
+
+.dict {
+    text-align : left;
+    white-space: nowrap;
+    width: 1%;
+}
+::-webkit-scrollbar-thumb{
+    background: darkgrey !important;
+}

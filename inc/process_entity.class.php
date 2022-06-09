@@ -58,14 +58,14 @@ class PluginWebapplicationsProcess_Entity extends CommonDBTM {
             case 'PluginWebapplicationsEntity':
                 if ($_SESSION['glpishow_count_on_tabs']) {
                     $dbu = new DbUtils();
-                    return self::createTabEntry(PluginWebapplicationsEntity::getTypeName(), $dbu->countElementsInTable($this->getTable(), ["plugin_webapplications_entities_id" => $item->getID()]));
+                    return self::createTabEntry(PluginWebapplicationsProcess::getTypeName(), $dbu->countElementsInTable($this->getTable(), ["plugin_webapplications_entities_id" => $item->getID()]));
                 }
                 return __('Processes', 'webapplications');
                 break;
             case 'PluginWebapplicationsProcess':
                 if ($_SESSION['glpishow_count_on_tabs']) {
                     $dbu = new DbUtils();
-                    return self::createTabEntry(PluginWebapplicationsProcess::getTypeName(), $dbu->countElementsInTable($this->getTable(), ["plugin_webapplications_processes_id" => $item->getID()]));
+                    return self::createTabEntry(PluginWebapplicationsEntity::getTypeName(), $dbu->countElementsInTable($this->getTable(), ["plugin_webapplications_processes_id" => $item->getID()]));
                 }
                 return __('Entities', 'webapplications');
                 break;

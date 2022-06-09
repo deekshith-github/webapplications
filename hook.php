@@ -133,6 +133,7 @@ function plugin_webapplications_install() {
        || !$DB->tableExists("glpi_plugin_webapplications_databases")
        || !$DB->tableExists("glpi_plugin_webapplications_streams")
        || !$DB->tableExists("glpi_plugin_webapplications_entities")
+       || !$DB->tableExists("glpi_plugin_webapplications_dashboards")
        || !$DB->tableExists("glpi_plugin_webapplications_processes")) {
        $DB->runFile(PLUGIN_WEBAPPLICATIONS_DIR . "/sql/update-4.0.0.sql");
    }
@@ -193,6 +194,7 @@ function plugin_webapplications_uninstall() {
               "glpi_plugin_webapplications_streams",
               "glpi_plugin_webapplications_processes",
               "glpi_plugin_webapplications_entities",
+              "glpi_plugin_webapplications_dashboards",
               "glpi_plugin_webapplications_webapplicationtypes",
               "glpi_plugin_webapplications_webapplicationservertypes",
               "glpi_plugin_webapplications_webapplicationtechnics",
@@ -381,7 +383,7 @@ function plugin_webapplications_getAddSearchOptions($itemtype) {
             $sopt[8108]['table']         = 'glpi_plugin_webapplications_webapplicationexternalexpositions';
             $sopt[8108]['field']         = 'name';
             $sopt[8108]['datatype']      = 'dropdown';
-            $sopt[8108]['name']          = PluginWebapsplicationsWebapplicationTechnic::getTypeName(1);
+            $sopt[8108]['name']          = PluginWebapplicationsWebapplicationTechnic::getTypeName(1);
             $sopt[8108]['forcegroupby']  = true;
             $sopt[8108]['massiveaction'] = false;
             $sopt[8108]['linkfield']     = 'webapplicationexternalexpositions_id';

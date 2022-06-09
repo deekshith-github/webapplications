@@ -91,7 +91,7 @@ function plugin_init_webapplications() {
 
    array_push($CFG_GLPI['appliance_types'],'PluginWebapplicationsProcess');
 
-   if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/process.form.php") ==true ) {
+   if (isset($_SERVER['REQUEST_URI']) && strpos($_SERVER['REQUEST_URI'], "front/appliance.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/database.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/process.form.php") ==true || strpos($_SERVER['REQUEST_URI'], "front/dashboard.php") ==true) {
         $PLUGIN_HOOKS["add_javascript"]['webapplications'][] = 'scripts/securityneedscolor.js.php';
    }
 

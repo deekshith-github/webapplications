@@ -18,7 +18,7 @@ ALTER TABLE `glpi_plugin_webapplications_appliances`
 
 CREATE TABLE `glpi_plugin_webapplications_databases` (
    `id` int unsigned NOT NULL auto_increment,
-   `entities_id`  int unsigned NOT NULL        DEFAULT '0',
+   `databases_id`  int unsigned NOT NULL        DEFAULT '0',
    `webapplicationexternalexpositions_id` int unsigned  NOT NULL     DEFAULT '0'
        COMMENT 'RELATION to glpi_plugin_webapplications_webapplicationexternalexpositions (id)',
    `webapplicationavailabilities` int unsigned   NOT NULL     DEFAULT '1',
@@ -76,4 +76,10 @@ CREATE TABLE `glpi_plugin_webapplications_processes_entities` (
     `plugin_webapplications_processes_id` int unsigned NOT NULL default '0',
     PRIMARY KEY  (`id`),
     UNIQUE KEY `unicity` (`plugin_webapplications_entities_id`,`plugin_webapplications_processes_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `glpi_plugin_webapplications_dashboards` (
+    `id` int(11) NOT NULL auto_increment,
+    `users_id` int(11) NOT NULL DEFAULT '0',
+    PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
