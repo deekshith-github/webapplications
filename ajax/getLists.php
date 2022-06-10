@@ -8,6 +8,6 @@ Session::checkLoginUser();
 
 switch ($_POST['action']) {
     case 'showListProcesses':
-        PluginWebapplicationsDashboard::showListProcesses($_POST['applianceId']);
+        PluginWebapplicationsDashboard::showLists($_POST['applianceId']);
         break;
 }
