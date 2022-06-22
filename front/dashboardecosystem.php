@@ -49,18 +49,4 @@ if (!isset($_GET["withtemplate"])) {
 
 
 
-$dashboard = new PluginWebapplicationsDashboard;
-
-if (Session::getCurrentInterface() == "central") {
-
-    Html::header(PluginWebapplicationsDashboard::getTypeName(2), $_SERVER['PHP_SELF'], "plugins", "pluginwebapplicationsdashboard", "config");
-    $dashboard->display(['id' => $_GET["id"]]);
-}
-
-
-
-if (Session::getCurrentInterface() == "central") {
-    Html::footer();
-} else {
-    Html::helpFooter();
-}
+new PluginWebapplicationsDashboardEcosystem();

@@ -15,6 +15,8 @@ ALTER TABLE `glpi_plugin_webapplications_appliances`
   ADD `webapplicationintegrities` int unsigned   NOT NULL     DEFAULT '1',
   ADD `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
   ADD `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1';
+  ADD `mailsupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  ADD `phonesupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
 
 CREATE TABLE `glpi_plugin_webapplications_databases` (
    `id` int unsigned NOT NULL auto_increment,
@@ -77,6 +79,16 @@ CREATE TABLE `glpi_plugin_webapplications_processes_entities` (
     PRIMARY KEY  (`id`),
     UNIQUE KEY `unicity` (`plugin_webapplications_entities_id`,`plugin_webapplications_processes_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+
+CREATE TABLE `glpi_plugin_webapplications_streams_databases` (
+    `id` int(11) NOT NULL auto_increment,
+    `plugin_webapplications_streams_id` int unsigned NOT NULL default '0',
+    `databaseinstances_id` int unsigned NOT NULL default '0',
+    PRIMARY KEY  (`id`),
+    UNIQUE KEY `unicity` (`plugin_webapplications_streams_id`,`databaseinstances_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
 
 CREATE TABLE `glpi_plugin_webapplications_dashboards` (
     `id` int(11) NOT NULL auto_increment,

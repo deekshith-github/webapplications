@@ -51,7 +51,7 @@ class PluginWebapplicationsDatabase extends CommonDBTM {
 
       $item             = $params['item'];
       $webapp_database = new self();
-      if ($item->getType() == 'Database') {
+      if ($item->getType() == 'DatabaseInstance') {
 
          if ($item->getID()) {
             $webapp_database->getFromDBByCrit(['databases_id' => $item->getID()]);
@@ -73,7 +73,7 @@ class PluginWebapplicationsDatabase extends CommonDBTM {
     *
     * @return false
     */
-   static function databaseAdd(Database $item) {
+   static function databaseAdd(DatabaseInstance $item) {
       if (!is_array($item->input) || !count($item->input)) {
          // Already cancel by another plugin
          return false;
@@ -87,7 +87,7 @@ class PluginWebapplicationsDatabase extends CommonDBTM {
     *
     * @return false
     */
-   static function databaseUpdate(Database $item) {
+   static function databaseUpdate(DatabaseInstance $item) {
       if (!is_array($item->input) || !count($item->input)) {
          // Already cancel by another plugin
          return false;
@@ -98,7 +98,7 @@ class PluginWebapplicationsDatabase extends CommonDBTM {
    /**
     * @param \Database $item
     */
-   static function setDatabase(Database $item) {
+   static function setDatabase(DatabaseInstance $item) {
       $database = new PluginWebApplicationsDatabase();
       if (!empty($item->fields)) {
          $database->getFromDBByCrit(['databases_id' => $item->getID()]);

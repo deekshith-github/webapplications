@@ -6,8 +6,14 @@ Html::header_nocache();
 
 Session::checkLoginUser();
 
-switch ($_POST['action']) {
-    case 'showListProcesses':
-        PluginWebapplicationsDashboard::showLists($_POST['applianceId']);
+switch ($_POST['panel']) {
+    case 'Ecosystem':
+        PluginWebapplicationsDashboardEcosystem::showLists($_POST['applianceId']);
+        break;
+    case 'Process':
+        PluginWebapplicationsDashboardProcess::showLists($_POST['applianceId']);
+        break;
+    case 'Application':
+        PluginWebapplicationsDashboardApplication::showLists($_POST['applianceId']);
         break;
 }

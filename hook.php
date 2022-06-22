@@ -134,6 +134,7 @@ function plugin_webapplications_install() {
        || !$DB->tableExists("glpi_plugin_webapplications_streams")
        || !$DB->tableExists("glpi_plugin_webapplications_entities")
        || !$DB->tableExists("glpi_plugin_webapplications_dashboards")
+       || !$DB->tableExists("glpi_plugin_webapplications_ecosystem_dashboards")
        || !$DB->tableExists("glpi_plugin_webapplications_processes")) {
        $DB->runFile(PLUGIN_WEBAPPLICATIONS_DIR . "/sql/update-4.0.0.sql");
    }
@@ -195,6 +196,7 @@ function plugin_webapplications_uninstall() {
               "glpi_plugin_webapplications_processes",
               "glpi_plugin_webapplications_entities",
               "glpi_plugin_webapplications_dashboards",
+              "glpi_plugin_webapplications_ecosystem_dashboards",
               "glpi_plugin_webapplications_webapplicationtypes",
               "glpi_plugin_webapplications_webapplicationservertypes",
               "glpi_plugin_webapplications_webapplicationtechnics",
@@ -254,7 +256,7 @@ function plugin_webapplications_getDatabaseRelations() {
 
    if ($plugin->isActivated("webapplications")) {
       return ["glpi_appliances" => ["glpi_plugin_webapplications_appliances" => "appliances_id"],
-              "glpi_databases" => ["glpi_plugin_webapplications_databases" => "databases_id"],
+              "glpi_databaseinstances" => ["glpi_plugin_webapplications_databases" => "databases_id"],
               "glpi_streams" => ["glpi_plugin_webapplications_streams" => "entities_id"],
               "glpi_processes" => ["glpi_plugin_webapplications_processes" => "entities_id"],
               "glpi_entities" => ["glpi_plugin_webapplications_entities" => "entities_id"]];
@@ -377,7 +379,7 @@ function plugin_webapplications_getAddSearchOptions($itemtype) {
 
       }
    }
-    if ($itemtype == "Database") {
+    if ($itemtype == "DatabaseInstance") {
         if (Session::haveRight("plugin_webapplications", READ)) {
 
             $sopt[8108]['table']         = 'glpi_plugin_webapplications_webapplicationexternalexpositions';

@@ -1,19 +1,25 @@
-var applianceDrop = document.getElementsByName('applianceDropdown')[0];
+var applianceDrop = document.getElementsByName('applianceDropdown');
 
-applianceDrop.onchange = changeList;
+applianceDrop.forEach(
+    function (node) {
+        node.onchange = changeList;
+    }
+);
+
 
 function changeList(e){
     var appId = e.target.value;
+    var panel = $('#tabspanel').find('a*[class*=active]')[0].title;
 
     jQuery.ajax({
         type: "POST",
-        url: "../ajax/listProcesses.php",
+        url: "../ajax/getLists.php",
         data: {
-            'action'     : 'showListProcesses',
-            'applianceId': appId
+            'panel'     : panel,
+            'applianceId': appId,
         },
         success: function (response, opts) {
-            var item_bloc = $('[name="listProc"]');
+            var item_bloc = $('[name="lists-'+panel+'"]');
             item_bloc.html(response);
         }
     });

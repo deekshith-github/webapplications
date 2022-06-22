@@ -80,4 +80,13 @@ class PluginWebapplicationsStream extends CommonDBTM {
         return true;
     }
 
+    function defineTabs($options=[]) {
+        $ong = [];
+        //add main tab for current object
+        $this->addDefaultFormTab($ong);
+        $this->addStandardTab('PluginWebapplicationsStream_Database', $ong, $options);
+        return $ong;
+    }
+
+
 }

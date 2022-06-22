@@ -147,11 +147,7 @@ class PluginWebapplicationsAppliance extends CommonDBTM {
    }
 
     function getTabNameForItem(CommonGLPI $item, $withtemplate=0) {
-        switch ($item::getType()) {
-            case 'PluginWebapplicationsProcess':
-                return __('Appliance', 'webapplications');
-                break;
-        }
-        return '';
+        return __('Appliance', 'webapplications');
+
     }
 }

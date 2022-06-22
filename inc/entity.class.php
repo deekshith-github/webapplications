@@ -89,6 +89,7 @@ class PluginWebapplicationsEntity extends CommonDBTM {
         //add main tab for current object
         $this->addDefaultFormTab($ong);
         $this->addStandardTab('PluginWebapplicationsProcess_Entity', $ong, $options);
+        $this->addStandardTab('Appliance_Item', $ong, $options);
         return $ong;
     }
 

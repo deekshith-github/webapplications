@@ -22,7 +22,7 @@
     transition: max-height 0.4s ease-out;
 }
 
-#entities, #appliances {
+#list {
     border:1px solid white;
     width:60%;
     color: inherit;
@@ -32,6 +32,7 @@
 
 option {
     background-color: inherit !important;
+    color: inherit;
     padding: 5px;
     border: none !important;
 }
@@ -43,4 +44,9 @@ option {
 }
 ::-webkit-scrollbar-thumb{
     background: darkgrey !important;
+}
+
+hr {
+    color: white;
+    height: 3px !important;
 }

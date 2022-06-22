@@ -76,6 +76,8 @@ CREATE TABLE `glpi_plugin_webapplications_appliances` (
    `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1',
    `address` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `backoffice`  VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `mailsupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `phonesupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    PRIMARY KEY  (`id`),
    KEY `appliances_id` (`appliances_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
@@ -147,6 +149,17 @@ CREATE TABLE `glpi_plugin_webapplications_processes_entities` (
     UNIQUE KEY `unicity` (`plugin_webapplications_entities_id`,`plugin_webapplications_processes_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
+
+DROP TABLE IF EXISTS `glpi_plugin_webapplications_streams_databases`;
+CREATE TABLE `glpi_plugin_webapplications_streams_databases` (
+    `id` int(11) NOT NULL auto_increment,
+    `plugin_webapplications_streams_id` int unsigned NOT NULL default '0',
+    `databaseinstances_id` int unsigned NOT NULL default '0',
+    PRIMARY KEY  (`id`),
+    UNIQUE KEY `unicity` (`plugin_webapplications_streams_id`,`databaseinstances_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
+
+
 DROP TABLE IF EXISTS `glpi_plugin_webapplications_dashboards`;
 CREATE TABLE `glpi_plugin_webapplications_dashboards` (
     `id` int(11) NOT NULL auto_increment,
@@ -154,4 +167,5 @@ CREATE TABLE `glpi_plugin_webapplications_dashboards` (
     PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
 
-INSERT INTO `glpi_plugin_webapplications_webapplicationtechnics` VALUES ('1', 0);
+INSERT INTO `glpi_plugin_webapplications_dashboards` VALUES ('1', 0);
+
