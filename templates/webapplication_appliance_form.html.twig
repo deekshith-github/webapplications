@@ -163,6 +163,28 @@ Traçabilité (T) : Identifier l’impact sur les traitements de l’actif infor
                     {% endif %}
 
 
+                    {{ fields.smallTitle(__('Support')) }}
+
+                    {% if item.isField('webapplicationmailsupport') %}
+                        {{ fields.autoNameField(
+                            "webapplicationmailsupport",
+                            item,
+                            __('Mail Support', 'webapplications'),
+                            withtemplate
+                        ) }}
+                    {% endif %}
+
+
+                    {% if item.isField('webapplicationphonesupport') %}
+                        {{ fields.autoNameField(
+                            "webapplicationphonesupport",
+                            item,
+                            __('Phone number Support', 'webapplications'),
+                            withtemplate
+                        ) }}
+                    {% endif %}
+
+
 
                 </div> {# .row #}
             </div> {# .row #}

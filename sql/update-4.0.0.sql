@@ -15,8 +15,8 @@ ALTER TABLE `glpi_plugin_webapplications_appliances`
   ADD `webapplicationintegrities` int unsigned   NOT NULL     DEFAULT '1',
   ADD `webapplicationconfidentialities` int unsigned   NOT NULL     DEFAULT '0',
   ADD `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1';
-  ADD `mailsupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  ADD `phonesupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  ADD `webapplicationmailsupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  ADD `webapplicationphonesupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
 
 CREATE TABLE `glpi_plugin_webapplications_databases` (
    `id` int unsigned NOT NULL auto_increment,

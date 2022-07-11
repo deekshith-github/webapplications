@@ -60,7 +60,7 @@ class PluginWebapplicationsDashboardEcosystem extends CommonDBTM {
 
     function showForm($ID, $options = [])
     {
-
+        global $CFG_GLPI;
 
         $options['candel'] = false;
         $options['colspan'] = 1;
@@ -71,21 +71,21 @@ class PluginWebapplicationsDashboardEcosystem extends CommonDBTM {
         echo "<tr><td colspan='6' style='text-align:right'>" . __('Appliance', 'webapplications') . "</td>";
 
         echo "<td >";
-        Appliance::dropdown(['name' => 'applianceDropdown']);
+        $rand = Appliance::dropdown(['name' => 'applianceDropdown']);
         echo "</td>";
         echo "</tr>";
         echo "</table></div>";
-        echo "<script src='../scripts/getListByDropdown.js' type='text/javascript'></script>";
-        echo "<div name=lists-Ecosystem></div>";
+        echo "<div id=lists-Ecosystem></div>";
+
+        $array['value']='__VALUE__';
+        $array['type']=self::getType();
+
+        Ajax::updateItemOnSelectEvent('dropdown_applianceDropdown'.$rand, 'lists-Ecosystem', $CFG_GLPI['root_doc'].PLUGIN_WEBAPPLICATIONS_DIR_NOFULL.'/ajax/getLists.php', $array);
 
     }
 
     static function showLists($ApplianceId){
 
-
-
-        echo "<link rel='stylesheet' href='../css/style.css'>";
-        echo "<script src='../scripts/accordion.js' type='text/javascript'></script>";
 
         echo "<h1>Ecosystem</h1>";
         echo "<hr>";
@@ -103,7 +103,7 @@ class PluginWebapplicationsDashboardEcosystem extends CommonDBTM {
 
         echo "</h2>";
 
-        echo "<div name=listEntitiesApp>";
+        echo "<div class='accordion' name=listEntitiesApp>";
 
         $entitiesAppDBTM = new Appliance_Item();
         $entitiesApp = $entitiesAppDBTM->find(['appliances_id' => $ApplianceId, 'itemtype' => 'PluginWebapplicationsEntity']);
@@ -125,12 +125,12 @@ class PluginWebapplicationsDashboardEcosystem extends CommonDBTM {
 
                 $name = $entity['name'];
 
-                echo "<button class='accordion'>$name</button>";
+                echo "<h3 class='accordionhead'>$name</h3>";
 
                 echo "<div class='panel' id='tabsbody'>";
 
 
-                echo "<table class='tab_cadre_fixe' style='border:1px solid white;'>";
+                echo "<table class='tab_cadre_fixe'>";
 
 
                 echo "<tbody>";
@@ -219,6 +219,7 @@ class PluginWebapplicationsDashboardEcosystem extends CommonDBTM {
         else echo "No process";
 
         echo "</div>";
+        echo "<script>accordion();</script>";
 
 
     }

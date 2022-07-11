@@ -55,6 +55,7 @@ class PluginWebapplicationsDashboard extends CommonDBTM {
     {
 
 
+
         $options['candel'] = false;
         $options['colspan'] = 1;
 
@@ -68,22 +69,42 @@ class PluginWebapplicationsDashboard extends CommonDBTM {
         echo "</td>";
         echo "</tr>";
         echo "</table></div>";
-        echo "<script src='../scripts/getListByDropdown.js' type='text/javascript'></script>";
-        //echo "<div name=lists-Dashboard></div>";
 
     }
 
     function defineTabs($options=[]) {
+
+        echo Html::css(PLUGIN_WEBAPPLICATIONS_DIR_NOFULL . "/lib/jquery-ui/jquery-ui.min.css");
+        echo Html::script(PLUGIN_WEBAPPLICATIONS_DIR_NOFULL . "/lib/jquery-ui/jquery-ui.min.js");
+        echo "<link rel='stylesheet' href='../css/style.css'>";
+        echo $JS = <<<JAVASCRIPT
+         <script type='text/javascript'>
+         function accordion(classname) {
+             if(classname == undefined){
+                 classname  = 'accordion';
+             }
+             jQuery(document).ready(function () {
+                 $("."+classname).accordion({
+                     collapsible: true,
+                     heightStyle: "content",
+                     active: false
+                 });
+             });
+         };
+         </script>
+        JAVASCRIPT;
+
         $ong = [];
         //add main tab for current object
         $this->addDefaultFormTab($ong);
         $this->addStandardTab('PluginWebapplicationsDashboardEcosystem', $ong, $options);// Vue Ecosystème
         $this->addStandardTab('PluginWebapplicationsDashboardProcess', $ong, $options);//Vue Metier
         $this->addStandardTab('PluginWebapplicationsDashboardApplication', $ong, $options);//Vue Applications
-        /*$this->addStandardTab('', $ong, $options);//Vue Administration
-        $this->addStandardTab('', $ong, $options);//Vue Infra logiques
-        $this->addStandardTab('', $ong, $options);//Vue Infra physiques
-        */
+        $this->addStandardTab('PluginWebapplicationsDashboardAdministration', $ong, $options);//Vue Administration
+        $this->addStandardTab('PluginWebapplicationsDashboardLogicialInfrastructure', $ong, $options);//Vue Infra logiques
+        $this->addStandardTab('PluginWebapplicationsDashboardPhysicalInfrastructure', $ong, $options);//Vue Infra physiques
+
+
         return $ong;
     }
 

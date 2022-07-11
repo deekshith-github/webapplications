@@ -1,25 +1,22 @@
-.accordion {
-    background-color: #1d2228;
-    color: white;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
+.accordionhead {
     border: 2px white solid;
     text-align: left;
-    outline: none;
-    margin-top: 15px;
-    font-size: 15px;
-    transition: 0.4s;
+    margin-top: 15px !important;
 }
 
-.accordion:hover {
+.ui-accordion-header{
+
+    background-color: #1d2228;
+    color: white;
+}
+
+.ui-accordion-header:hover {
     background-color: dimgrey;
 }
 
 .panel {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-out;
+    background-color: inherit;
+    color : inherit;
 }
 
 #list {

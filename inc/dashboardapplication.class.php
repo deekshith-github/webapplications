@@ -61,6 +61,7 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
     function showForm($ID, $options = [])
     {
 
+        global $CFG_GLPI;
 
         $options['candel'] = false;
         $options['colspan'] = 1;
@@ -71,12 +72,15 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
         echo "<tr><td colspan='6' style='text-align:right'>" . __('Appliance', 'webapplications') . "</td>";
 
         echo "<td >";
-        Appliance::dropdown(['name' => 'applianceDropdown']);
+        $rand = Appliance::dropdown(['name' => 'applianceDropdown']);
         echo "</td>";
         echo "</tr>";
         echo "</table></div>";
-        echo "<script src='../scripts/getListByDropdown.js' type='text/javascript'></script>";
-        echo "<div name=lists-Application></div>";
+        echo "<div id=lists-Application></div>";
+
+        $array['value']='__VALUE__';
+        $array['type']=self::getType();
+        Ajax::updateItemOnSelectEvent('dropdown_applianceDropdown'.$rand, 'lists-Application', $CFG_GLPI['root_doc'].PLUGIN_WEBAPPLICATIONS_DIR_NOFULL.'/ajax/getLists.php', $array);
 
     }
 
@@ -85,9 +89,6 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
         echo "<h1>Applications</h1>";
         echo "<hr>";
 
-        echo "<link rel='stylesheet' href='../css/style.css'>";
-        echo "<script src='../scripts/accordion.js' type='text/javascript'></script>";
-
         self::showListAppliance($ApplianceId);
         echo "<hr>";
         self::showListDatabase($ApplianceId);
@@ -95,6 +96,8 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
         self::showListStream($ApplianceId);
         echo "<hr>";
         self::showSupportPart($ApplianceId);
+
+        echo "<script>accordion();</script>";
 
     }
 
@@ -113,7 +116,7 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
             'onclick' => "window.location.href='" . $linkAddAppliance . "'"]);
 
         echo "</h2>";
-        echo "<div name=listAppliancesApp>";
+        echo "<div class='accordion' name=listAppliancesApp>";
 
         $appliancesAppDBTM = new Appliance_Item();
         $applianceApp = $appliancesAppDBTM->find(['appliances_id' => $ApplianceId, 'itemtype' => 'Appliance']);
@@ -135,12 +138,12 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
 
                 $name = $appliance['name'];
 
-                echo "<button class='accordion'>$name</button>";
+                echo "<h3 class='accordionhead'>$name</h3>";
 
                 echo "<div class='panel' id='tabsbody'>";
 
 
-                echo "<table class='tab_cadre_fixe' style='border:1px solid white;'>";
+                echo "<table class='tab_cadre_fixe'>";
 
 
                 echo "<tbody>";
@@ -441,7 +444,7 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
             'onclick' => "window.location.href='" . $linkAddDatabase . "'"]);
 
         echo "</h2>";
-        echo "<div name=listDatabaseApp>";
+        echo "<div class='accordion' name=listDatabaseApp>";
 
         $databasesAppDBTM = new Appliance_Item();
         $databaseApp = $databasesAppDBTM->find(['appliances_id' => $ApplianceId, 'itemtype' => 'DatabaseInstance']);
@@ -463,12 +466,12 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
 
                 $name = $database['name'];
 
-                echo "<button class='accordion'>$name</button>";
+                echo "<h3 class='accordionhead'>$name</h3>";
 
                 echo "<div class='panel' id='tabsbody'>";
 
 
-                echo "<table class='tab_cadre_fixe' style='border:1px solid white;'>";
+                echo "<table class='tab_cadre_fixe'>";
 
 
                 echo "<tbody>";
@@ -550,11 +553,11 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
                 echo "<td>";
                 if (!empty($streams)) {
 
-                    echo "<select name='processes' id='list' Size='3' ondblclick='location = this.value;'>";
+                    echo "<select name='streams' id='list' Size='3' ondblclick='location = this.value;'>";
                     foreach ($streams as $stream) {
                         $streamDBTM->getFromDB($stream['plugin_webapplications_streams_id']);
                         $name = $streamDBTM->getName();
-                        $link = PluginWebapplicationsProcess::getFormURLWithID($stream['plugin_webapplications_streams_id']);
+                        $link = PluginWebapplicationsStream::getFormURLWithID($stream['plugin_webapplications_streams_id']);
                         echo "<option value=$link>$name</option>";
                     }
                     echo "</select>";
@@ -668,7 +671,7 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
             'onclick' => "window.location.href='" . $linkAddStream . "'"]);
 
         echo "</h2>";
-        echo "<div name=listStreamApp>";
+        echo "<div class='accordion' name=listStreamApp>";
 
         $streamAppDBTM = new Appliance_Item();
         $streamApp = $streamAppDBTM->find(['appliances_id' => $ApplianceId, 'itemtype' => 'PluginWebapplicationsStream']);
@@ -690,12 +693,12 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
 
                 $name = $stream['name'];
 
-                echo "<button class='accordion'>$name</button>";
+                echo "<h3 class='accordionhead'>$name</h3>";
 
                 echo "<div class='panel' id='tabsbody'>";
 
 
-                echo "<table class='tab_cadre_fixe' style='border:1px solid white;'>";
+                echo "<table class='tab_cadre_fixe'>";
 
 
                 echo "<tbody>";
@@ -800,17 +803,19 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
         echo "<h2 style='margin-bottom: 15px'>";
         echo "Support";
 
-        //$linkApp = PluginWebapplicationsSupport::getFormURLWithID($ApplianceId);
-
-        echo Html::submit(_sx('button', 'Edit'), ['name' => 'edit', 'class' => 'btn btn-secondary', 'icon' => 'fas fa-edit', 'style' => 'float: right',]); //, 'onclick' => "window.location.href='" . $linkApp . "'"
-        echo "</h2>";
-
-        echo "<div name=supportApp>";
-        echo "<table class='tab_cadre_fixe'>";
-        echo "<tbody>";
+        $linkApp = Appliance::getFormURLWithID($ApplianceId);
 
         $appliance = new Appliance();
         $appliance->getFromDB($ApplianceId);
+
+        echo Html::submit(_sx('button', 'Edit'), ['name' => 'edit', 'class' => 'btn btn-secondary', 'icon' => 'fas fa-edit', 'style' => 'float: right', 'onclick' => "window.location.href='" . $linkApp . "'"]);
+        echo "</h2>";
+
+        echo "<div id=supportApp>";
+        echo "<table class='tab_cadre_fixe'>";
+        echo "<tbody>";
+
+
 
         $refEditid = $appliance->getField('manufacturers_id');
         $refEdit = new Manufacturer();
@@ -837,7 +842,7 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
         echo "<td>";
 
         $mail = null;
-        if($is_known) $mail = $applianceplugin->fields['mailsupport'];
+        if($is_known) $mail = $applianceplugin->fields['webapplicationmailsupport'];
 
         if(!$is_known || $mail == null) $mail = NOT_AVAILABLE;
 
@@ -851,7 +856,7 @@ class PluginWebapplicationsDashboardApplication extends CommonDBTM {
         echo "<td>";
 
         $phone = null;
-        if($is_known) $phone = $applianceplugin->fields['phonesupport'];
+        if($is_known) $phone = $applianceplugin->fields['webapplicationphonesupport'];
 
         if(!$is_known || $phone == null) $phone = NOT_AVAILABLE;
 

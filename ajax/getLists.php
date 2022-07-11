@@ -6,14 +6,26 @@ Html::header_nocache();
 
 Session::checkLoginUser();
 
-switch ($_POST['panel']) {
-    case 'Ecosystem':
-        PluginWebapplicationsDashboardEcosystem::showLists($_POST['applianceId']);
-        break;
-    case 'Process':
-        PluginWebapplicationsDashboardProcess::showLists($_POST['applianceId']);
-        break;
-    case 'Application':
-        PluginWebapplicationsDashboardApplication::showLists($_POST['applianceId']);
-        break;
+if(isset($_POST['type'])&&isset($_POST['value'])) {
+
+    switch ($_POST['type']) {
+        case PluginWebapplicationsDashboardEcosystem::getType():
+            PluginWebapplicationsDashboardEcosystem::showLists($_POST['value']);
+            break;
+        case PluginWebapplicationsDashboardProcess::getType():
+            PluginWebapplicationsDashboardProcess::showLists($_POST['value']);
+            break;
+        case PluginWebapplicationsDashboardApplication::getType():
+            PluginWebapplicationsDashboardApplication::showLists($_POST['value']);
+            break;
+        case PluginWebapplicationsDashboardAdministration::getType():
+            PluginWebapplicationsDashboardAdministration::showLists($_POST['value']);
+            break;
+        case PluginWebapplicationsDashboardLogicialInfrastructure::getType():
+            PluginWebapplicationsDashboardLogicialInfrastructure::showLists($_POST['value']);
+            break;
+        case PluginWebapplicationsDashboardPhysicalInfrastructure::getType():
+            PluginWebapplicationsDashboardPhysicalInfrastructure::showLists($_POST['value']);
+            break;
+    }
 }

@@ -76,8 +76,8 @@ CREATE TABLE `glpi_plugin_webapplications_appliances` (
    `webapplicationtraceabilities` int unsigned   NOT NULL     DEFAULT '1',
    `address` VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    `backoffice`  VARCHAR(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-   `mailsupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-   `phonesupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `webapplicationmailsupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+   `webapplicationphonesupport` VARCHAR (255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
    PRIMARY KEY  (`id`),
    KEY `appliances_id` (`appliances_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
